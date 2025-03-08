@@ -14635,15 +14635,15 @@ cancelTutorialButton.graphic = function(){
 };
 
 var codeButton = new button(300,545,function(){
-    var giveCode = '```\n[';
+    var giveCode = '\n[';
 for(var i = 0; i < saveCode.length; i++){
     giveCode += '"'+saveCode[i]+'",';
 }
-giveCode += '],\n```';
+giveCode += '],\n';
 println(giveCode);
 
-    println('Please copy and paste the above text into the Tips & Thanks section of this program');
-    println('(including the tick marks ```)');
+    println('Here is your save code!');
+    println('(This project was originally hosted on Khan Academy, where the code could be shared. It may not be so easy to share the code from this platform.)');
 });
 codeButton.toPop = 1.2;
 codeButton.popSpeed = 2;
