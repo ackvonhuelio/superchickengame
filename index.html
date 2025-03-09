@@ -20662,7 +20662,7 @@ mouseScrolled = function(){
 
     <script src="https://cdn.jsdelivr.net/gh/ackvonhuelio/chickenGameCodes/runPJS_onKA.js"></script>
         
-    <script>
+   <script>
             function resizeCanvas() {
                 let canvas = document.querySelector("canvas");
                 if (!canvas) return;
@@ -20670,10 +20670,18 @@ mouseScrolled = function(){
                 let scale = Math.min(window.innerWidth / 600, window.innerHeight / 700);
                 canvas.style.transform = `scale(${scale})`;
             }
-
+            // setTimeout(() => {
+            // resizeCanvas();
+            // }, 50);
             window.addEventListener("resize", resizeCanvas);
             window.addEventListener("load", resizeCanvas);
-    </script>
+            window.addEventListener("orientationchange", resizeCanvas);
+
+            // Handle weird mobile resizing when tapping
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener("resize", resizeCanvas);
+            }
+        </script>
         
 </body>
 
