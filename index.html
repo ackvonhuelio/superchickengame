@@ -32,7 +32,8 @@
             }
 
             canvas {
-                position: absolute;
+                max-width: 100vw;
+                max-height: 100vh;
                 transform-origin: center;
             }
         </style>
@@ -20684,9 +20685,6 @@ mouseScrolled = function(){
             window.addEventListener("resize", resizeCanvas);
             window.addEventListener("load", resizeCanvas);
             window.addEventListener("orientationchange", resizeCanvas);
-            setTimeout(() => { 
-            resizeCanvas();
-            }, 50);
             // NEW FIX: Handle weird mobile resizing when tapping
             if (window.visualViewport) {
 window.visualViewport.addEventListener("resize", resizeCanvas);
