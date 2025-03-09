@@ -232,6 +232,12 @@ pmsX=pmouseX-dimScroll.x;
 pmsY=pmouseY-dimScroll.y;
 msX=mouseX-dimScroll.x;
 msY=mouseY-dimScroll.y;
+var window = (function(what) { return this[what]; })("window");
+var scaleFactor = window.scaleFactor;
+pmsX = (pmsX-300)/scaleFactor + 300;
+pmsY = (pmsY-300)/scaleFactor + 300;
+msX = (msX-300)/scaleFactor + 300;
+msY = (msY-300)/scaleFactor + 300;
 }
 function strikeThrough(text) {
 var ret = '';
@@ -20663,23 +20669,27 @@ mouseScrolled = function(){
     <script src="https://cdn.jsdelivr.net/gh/ackvonhuelio/chickenGameCodes/runPJS_onKA.js"></script>
         
    <script>
+            let scaleFactor = 1;
             function resizeCanvas() {
                 let canvas = document.querySelector("canvas");
                 if (!canvas) return;
 
-                let scale = Math.min(window.innerWidth / 600, window.innerHeight / 700);
-                canvas.style.transform = `scale(${scale})`;
+                scaleFactor = Math.min(window.innerWidth / 600, window.innerHeight / 700);
+                canvas.style.transform =`scale(${scaleFactor})`;
+
+                // Pass the scale factor to the PJS code
+                window.scaleFactor = scaleFactor;
             }
-            // setTimeout(() => {
-            // resizeCanvas();
-            // }, 50);
+
             window.addEventListener("resize", resizeCanvas);
             window.addEventListener("load", resizeCanvas);
             window.addEventListener("orientationchange", resizeCanvas);
-
-            // Handle weird mobile resizing when tapping
+            setTimeout(() => { 
+            resizeCanvas();
+            }, 50);
+            // NEW FIX: Handle weird mobile resizing when tapping
             if (window.visualViewport) {
-                window.visualViewport.addEventListener("resize", resizeCanvas);
+window.visualViewport.addEventListener("resize", resizeCanvas);
             }
         </script>
         
