@@ -16570,7 +16570,7 @@ charButton(370,500,'#/a',65);
 charButton(540,450,'del.',70);
         if(pushedKey){
            // 65535
-          var allowed = ' qwertyuiopasdfghjklzxcvbnm1234567890!@$%^&*()`<>?./;:"{}[]-=_+';
+          var allowed = ' qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@$%^&*()`<>?./;:"{}[]-=_+';
           if(parseInt(pushedKey,1) === 8){
           tNames[0] = tNames[0].substring(0,tNames[0].length-1);
           }else if(allowed.includes(pushedKey.toString())){
