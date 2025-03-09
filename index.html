@@ -20687,13 +20687,15 @@ mouseScrolled = function(){
             window.addEventListener("load", resizeCanvas);
             window.addEventListener("orientationchange", resizeCanvas);
 
-           function timedResize(){
-              resizeCanvas();
-              setTimeout(() => { 
-              timedResize();
-              }, 50);
+           let firstClick = true;
+
+            document.addEventListener("click", function () {
+            if (firstClick) {
+            setTimeout(resizeCanvas, 10);
+            firstClick = false;
             }
-            timedResize();
+            });
+
             // NEW FIX: Handle weird mobile resizing when tapping
             if (window.visualViewport) {
 window.visualViewport.addEventListener("resize", resizeCanvas);
