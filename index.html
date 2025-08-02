@@ -583,13 +583,13 @@ var ang = getAngle(a,b);
 var p = new projectile(a.x,a.y,cos(ang)*h,sin(ang)*h,{type:t,g:0,target:b,data:a.stats,owner:a,damage:d});
 }
 function feedProj(a){
-var p = new projectile(a.x,a.y,0,-4.75,{type:'foodE',g:0.2,target:a,data:a.stats,owner:a,damage:0});
+var p = new projectile(a.x,a.y,0,-4.75,{type:'food',g:0.2,target:a,data:a.stats,owner:a,damage:0});
 }
 function xpProj(a,amt){
 var p = new projectile(a.x,a.y,0,-4.7,{type:'xp',g:0.2,target:a,data:a.stats,owner:a,damage:0, amount:amt||1, customSize:1.4, customLife:200});
 }
 function chickenFeed(a,b){
-throwAbilityProj(a,b,dist(a.x,a.y,b.x,b.y)/50,-1,'foodE');
+throwAbilityProj(a,b,dist(a.x,a.y,b.x,b.y)/50,-1,'food');
 }
 function temporaryStat(subj,attack,health){
 subj.attack += attack;
@@ -698,16 +698,16 @@ function getRand(){}
 function getRandExact(){}
 function killChicken(){}
 function killContraption(){}
-function killfoodE(){}
+function killFood(){}
 function summonCheck(){}
-var lastfoodEFunc = function(){};
+var lastFoodFunc = function(){};
 var bgImg;
 var shop;
 var gold;
 var myCoops;
 var tutorial;
 var power;
-var foodE;
+var foode;
 var tier;
 var record;
 var myContraptions;
@@ -737,8 +737,8 @@ killChicken(shop[n].data[i]);
 if(shop[n].data[i].IDENTIFIER === 'contraption'){
 killContraption(shop[n].data[i]);
 }
-if(shop[n].data[i].IDENTIFIER === 'foodE'){
-killfoodE(shop[n].data[i]);
+if(shop[n].data[i].IDENTIFIER === 'food'){
+killFood(shop[n].data[i]);
 }
 }
 }
@@ -923,7 +923,7 @@ popMatrix();
 var stats = {};
 var cam = {x:0,y:0,zoom:0,toZoom:1};
 var aCam = {on:false,x:0,y:0,zoom:0};
-var sTypes = ['chicken','contraption','foodE'];
+var sTypes = ['chicken','contraption','food'];
 
 for(var i = 0; i < sTypes.length; i++){
     stats[sTypes[i]] = {};
@@ -954,7 +954,7 @@ var bases = {
     contraption:function(){
 
     },
-    foodE:function(){
+    food:function(){
 
     },
 };
@@ -3154,9 +3154,9 @@ popMatrix();
     bulletLife: 600,
     plusCardHeight: 10,
     ability: function(lvl){
-    return 'Eats foodE: gain +'+(lvl*2)+' attack and +'+(lvl*2)+' health';
+    return 'Eats food: gain +'+(lvl*2)+' attack and +'+(lvl*2)+' health';
     },
-    eatfoodE: function(t,lvl){
+    eatFood: function(t,lvl){
     t.attack += lvl*2;
     t.health += lvl*2;
     feedProj(t);
@@ -3340,9 +3340,9 @@ popMatrix();
     bulletLife: 600,
     plusCardHeight: 5,
     ability: function(lvl){
-    return 'Chicken friend or self eats foodE: give it +'+(lvl*2)+' health';
+    return 'Chicken friend or self eats food: give it +'+(lvl*2)+' health';
     },
-    chickenFriendEatsfoodE: function(t,lvl){
+    chickenFriendEatsFood: function(t,lvl){
     if(lastFed){
     lastFed.health += lvl*2;
     chickenFeed(t,lastFed);
@@ -5756,7 +5756,7 @@ popMatrix();
     bulletLife: 600,
     plusCardHeight: 8,
     ability: function(lvl){
-    return 'Bought: replace shop page 2 with '+(1+lvl)+' free foodEs tier 5 and under';
+    return 'Bought: replace shop page 2 with '+(1+lvl)+' free foods tier 5 and under';
     },
     buy: function(t,lvl){
     shop[1].frozens = [];
@@ -5764,7 +5764,7 @@ popMatrix();
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < lvl+1; i++){
-        var a = getRand(5,'foodE',t.x,t.y);
+        var a = getRand(5,'food',t.x,t.y);
         a.price = 0;
         shop[1].data.push(a);
     }
@@ -7281,14 +7281,14 @@ popMatrix();
     if(lvl > 1){
         a = 'copies';
     }
-    return 'Chicken friend or self eats foodE: give it '+lvl+' '+a+' of the foodE.\nWorks 2 times per turn\n('+(2-t.triggers)+' triggers left)\nThe copies do not trigger any abilities';
+    return 'Chicken friend or self eats food: give it '+lvl+' '+a+' of the food.\nWorks 2 times per turn\n('+(2-t.triggers)+' triggers left)\nThe copies do not trigger any abilities';
     },
-    chickenFriendEatsfoodE: function(t,lvl){
+    chickenFriendEatsFood: function(t,lvl){
     if(t.triggers < 2){
     if(lastFed){
         t.triggers++;
     for(var i = 0; i < lvl; i++){
-    lastfoodEFunc(t,lastFed);
+    lastFoodFunc(t,lastFed);
     }
     //chickenFeed(t,lastFed);
     }
@@ -8095,9 +8095,9 @@ line(a,-8,a,0);
     if(lvl > 1){
     a = 's';
     }
-    return 'Chicken friend eats foodE: give it +'+(2*lvl)+' attack and deal 1 damage to it';
+    return 'Chicken friend eats food: give it +'+(2*lvl)+' attack and deal 1 damage to it';
     },
-    chickenFriendEatsfoodE: function(t,lvl){
+    chickenFriendEatsFood: function(t,lvl){
     if(lastFed){
     lastFed.attack += lvl*2;
     lastFed.health -= 1;
@@ -8651,7 +8651,7 @@ rect(-22,-35,10,70,5);
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < lvl; i++){
-        var a = new foodE(t.x,t.y,stats.foodE.Chocolate);
+        var a = new foode(t.x,t.y,stats.food.Chocolate);
         shop[1].data.push(a);
     }
     }else{
@@ -8731,7 +8731,7 @@ rect(-22,-35,10,70,5);
     },
     // }
     ],
-    foodE:[
+    food:[
     // tier 1 {
     // apple
     {
@@ -9404,7 +9404,7 @@ popMatrix();
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < 2; i++){
-        var a = new foodE(t.x,t.y,stats.foodE.Oil);
+        var a = new foode(t.x,t.y,stats.food.Oil);
         shop[1].data.push(a);
         shop[1].data[shop[1].data.length-1].price = 1;
     }
@@ -9874,7 +9874,7 @@ return true;
 
 var chickens = [];
 var contraptions = [];
-var foodEs = [];
+var foods = [];
 var myCoops = [];
 var myContraptions = [];
 var projs = [];
@@ -9919,13 +9919,13 @@ var shop = [
         data:[],
         num:3,
         frozens:[],
-        types:['contraption','foodE']
+        types:['contraption','food']
     },
     {
         data:[],
         num:5,
         frozens:[],
-        types:['chicken','foodE','contraption']
+        types:['chicken','food','contraption']
     },
     ];
 var attackPaths = [];
@@ -9970,7 +9970,7 @@ for(var i = chickens.length-1; i > -1; i--){
     }
 }
 }
-function killfoodE(e){
+function killFood(e){
     e.kill();
 }
 function killContraption(e){
@@ -10128,7 +10128,7 @@ this.hat = hats[floor(random(0,hats.length))];
 this.id = random(0,1000000000);
 contraptions.push(this);
 }
-function foodE(x,y,t){
+function foode(x,y,t){
 //println(t);
 this.x = x;
 this.y = y;
@@ -10136,7 +10136,7 @@ this.px = x;
 this.py = y;
 this.dir = 1;
 this.lvl = 1;
-this.IDENTIFIER = 'foodE';
+this.IDENTIFIER = 'food';
 this.deathLocationText = 'how are you even gonna sell this';
 this.shakeIntensity = 1.1;
 this.shakeRad = 5;
@@ -10146,7 +10146,7 @@ this.stats = {
 size:1,
 health:1,
 attack:1,
-name:"Boring foodE",
+name:"Boring food",
 };
 if(t){
 this.stats = t;
@@ -10171,7 +10171,7 @@ this.dAttack = this.attack;
 this.hat = hats[floor(random(0,hats.length))];
 
 this.id = random(0,1000000000);
-foodEs.push(this);
+foods.push(this);
 }
 function coop(x,y,c){
 this.x = x;
@@ -10203,8 +10203,8 @@ break;
 case 'contraption':
 ret = new contraption(x,y,t);
 break;
-case 'foodE':
-ret = new foodE(x,y,t);
+case 'food':
+ret = new foode(x,y,t);
 }
 return ret;
 }
@@ -10267,8 +10267,8 @@ killChicken(shop[n].data[i]);
 if(shop[n].data[i].IDENTIFIER === 'contraption'){
 killContraption(shop[n].data[i]);
 }
-if(shop[n].data[i].IDENTIFIER === 'foodE'){
-killfoodE(shop[n].data[i]);
+if(shop[n].data[i].IDENTIFIER === 'food'){
+killFood(shop[n].data[i]);
 }
 }else{
 frozen.push(shop[n].data[i]);
@@ -10296,7 +10296,7 @@ shop[n].data.push(getRand(tier,chooseFrom(shop[n].types),x,y));
 shop[n].frozens.push(false);
 }
 if(tutorial.on === true && tutorial.num === 10 && (n === 1||n===2)){
-shop[n].data[0] = getNameExact('Apple','foodE',x,y);
+shop[n].data[0] = getNameExact('Apple','food',x,y);
 }
 if(tutorial.on === true && tutorial.num === 15 && (n === 1||n===2)){
 shop[n].data[0] = getNameExact('Dart launcher','contraption',x,y);
@@ -10675,7 +10675,7 @@ rect(-22,-35,10,70,5);
 popMatrix();
         }
         break;
-        case 'foodE':
+        case 'food':
         rotate((frameCount*8)*sin(this.id));
         textAlignCompatible(CENTER,BASELINE);
         textSize(20);
@@ -10984,7 +10984,7 @@ effect.prototype.draw = function() {
         popMatrix();
         }
         break;
-        case 'foodE splatter':
+        case 'food splatter':
         {
         pushMatrix();
         var oneToZero = 1-((this.maxL-this.l)/(this.maxL));
@@ -11395,12 +11395,12 @@ chicken.prototype.draw = function(e,noAnimDraw){
     }
     popMatrix();
     
-    if(this.foodEHighlight){
+    if(this.foodHighlight){
         noStroke();
         fill(247, 255, 0,100);
         ellipse(0,0,80,80);
     }
-    this.foodEHighlight = false;
+    this.foodHighlight = false;
     
     stroke(0,0,0);
     strokeWeight(3);
@@ -11692,12 +11692,12 @@ contraption.prototype.draw = function(e){
     //
 popMatrix();
     
-     if(this.foodEHighlight){
+     if(this.foodHighlight){
         noStroke();
         fill(0, 255, 242,100);
         ellipse(0,0,80,80);
     }
-    this.foodEHighlight = false;
+    this.foodHighlight = false;
     
     stroke(0,0,0);
     strokeWeight(3);
@@ -11709,7 +11709,7 @@ popMatrix();
     }
     
 };
-foodE.prototype.draw = function(e){
+foode.prototype.draw = function(e){
     
     this.displayed = true;
     //println(this.pos);
@@ -11802,7 +11802,7 @@ foodE.prototype.draw = function(e){
     scale(1/2);
     translate(-300,-300);
     
-    image(getImg(this.stats.name,'foodE'),0,0);
+    image(getImg(this.stats.name,'food'),0,0);
     
     popMatrix();
     if(this.stats.animImg && !(delag4&&!this.stats.crucialAnim)){
@@ -11913,10 +11913,10 @@ var kfc = new effect(this.x,this.y,'deadChicken',1,100);
 }
 killChicken(this);
 };
-foodE.prototype.kill = function(){
-for(var i = foodEs.length-1; i > -1; i--){
-    if(foodEs[i] === this){
-        foodEs.splice(i,1);
+foode.prototype.kill = function(){
+for(var i = foods.length-1; i > -1; i--){
+    if(foods[i] === this){
+        foods.splice(i,1);
     }
 }
 };
@@ -12103,7 +12103,7 @@ noStroke();
     popMatrix();
 
 };
-foodE.prototype.cardStuff = function(x,y,n){
+foode.prototype.cardStuff = function(x,y,n){
     var r = n*(1/0.12);
     fill(200,200,200,(n)*2100);
 noStroke();
@@ -12277,7 +12277,7 @@ this.highlighted = false;
 }
 this.canHold = true;
 };
-foodE.prototype.behavior = function(){
+foode.prototype.behavior = function(){
 physics(this);
 if(dist(msX,msY,this.x,this.y)<=(25*this.stats.size)*this.nScale){
 
@@ -13585,7 +13585,7 @@ function newGame(){
     }
     chickens = [];
     contraptions = [];
-    foodEs = [];
+    foods = [];
     myCoops = [];
     myContraptions = [];
     projs = [];
@@ -13617,13 +13617,13 @@ function newGame(){
         data:[],
         num:3,
         frozens:[],
-        types:['contraption','foodE']
+        types:['contraption','food']
     },
     {
         data:[],
         num:5,
         frozens:[],
-        types:['chicken','foodE','contraption']
+        types:['chicken','food','contraption']
     },
     ];
     shopPage = 0;
@@ -15073,7 +15073,7 @@ scenes:[
     textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(14);
-    var a = 'A team consists of 1-3\nchicken coops, each\nfilled with up to 6\nchickens, and any number\nof contraptions\nChickens and contraptions\ncan be purchased from the\nshop for gold (usually 3).\nYou get 14 gold to spend\neach turn.\nfoodE can also be bought,\nwhich is used to make\nchickens stronger.';
+    var a = 'A team consists of 1-3\nchicken coops, each\nfilled with up to 6\nchickens, and any number\nof contraptions\nChickens and contraptions\ncan be purchased from the\nshop for gold (usually 3).\nYou get 14 gold to spend\neach turn.\nFood can also be bought,\nwhich is used to make\nchickens stronger.';
     textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
     
     if(tutorial.timer > 170){
@@ -15389,7 +15389,7 @@ textCompatible('Merge Power:\n'+5+'/'+15,30,-1);
     textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
-    var a = 'You can improve these\nstats with abilities\nor foodE.\nfoodE is found in shop\npages 2 and 3.\n\nNavigate to shop page 2,\nthen drag an apple to a\nchicken in your coop\nto feed it.\n';
+    var a = 'You can improve these\nstats with abilities\nor food.\nFood is found in shop\npages 2 and 3.\n\nNavigate to shop page 2,\nthen drag an apple to a\nchicken in your coop\nto feed it.\n';
     textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
     
     pushMatrix();
@@ -18099,7 +18099,7 @@ abandonButton.offFor = 100;
 settingFromGame = false;
 chickens = [];
     contraptions = [];
-    foodEs = [];
+    foods = [];
     myCoops = [];
     myContraptions = [];
     projs = [];
@@ -18223,39 +18223,39 @@ if(todo.length > 0){
 
 gold = round(gold);
 
-var foodEHighlight = false;
+var foodHighlight = false;
 if(m.hold){
-    if(m.hold.IDENTIFIER === 'foodE'){
+    if(m.hold.IDENTIFIER === 'food'){
         var options = m.hold.stats.targets();
         for(var i = 0; i < options.length; i++){
         if(dist(msX,msY,options[i].x,options[i].y)<=options[i].radius){
-            foodEHighlight = options[i];
+            foodHighlight = options[i];
         }
         }
-        if(foodEHighlight){
-            foodEHighlight.foodEHighlight = true;
+        if(foodHighlight){
+            foodHighlight.foodHighlight = true;
         }
         if(clicked){
-            if(foodEHighlight){
+            if(foodHighlight){
             var ob = m.hold;
             if(canPurchase(ob)){
                 //println(ob.stats.applied);
             spend(ob.price);
             shop[m.hold.shopPos[0]].data[m.hold.shopPos[1]] = false;
             if(ob.stats.applied){
-            ob.stats.applied(ob,foodEHighlight);
+            ob.stats.applied(ob,foodHighlight);
             }
-            lastfoodEFunc = ob.stats.applied;
-            lastFed = foodEHighlight;
-            if(foodEHighlight.IDENTIFIER === 'chicken'){
+            lastFoodFunc = ob.stats.applied;
+            lastFed = foodHighlight;
+            if(foodHighlight.IDENTIFIER === 'chicken'){
             if(tutorial.on && tutorial.num === 10){
             tutorial.active = true;
             tutorial.num++;
             }
-            doAbilitiesTurn('chickenFriendEatsfoodE');
+            doAbilitiesTurn('chickenFriendEatsFood');
             }
-            doAbilityTurnSingle('eatfoodE',foodEHighlight);
-            doAbilitiesTurn('friendEatsfoodE');
+            doAbilityTurnSingle('eatFood',foodHighlight);
+            doAbilitiesTurn('friendEatsFood');
             
             ob.kill();
             m.hold = false;
@@ -18760,7 +18760,7 @@ case 4:
 textCompatibleCenter('Task:\nBuy a chicken',225,55);
 break;
 case 10:
-textCompatibleCenter('Task:\nBuy a foodE',225,55);
+textCompatibleCenter('Task:\nBuy a food',225,55);
 break;
 case 12:
 textCompatibleCenter('Task:\nFinish the turn',225,55);
@@ -18823,9 +18823,9 @@ for(var i = chickens.length-1; i > -1; i--){
 
 allPrompts(false);
 
-for(var i = foodEs.length-1; i > -1; i--){
-    if(foodEs[i].shopPos && shop[foodEs[i].shopPos[0]].data[foodEs[i].shopPos[1]] === foodEs[i]){
-    foodEs[i].behavior();
+for(var i = foods.length-1; i > -1; i--){
+    if(foods[i].shopPos && shop[foods[i].shopPos[0]].data[foods[i].shopPos[1]] === foods[i]){
+    foods[i].behavior();
     }
     }
 
@@ -18959,7 +18959,7 @@ if(myCoops[i] !== m.hold){
 }
 }
 borderCheckContraption(m.hold);
-}else if(m.hold.IDENTIFIER==='foodE'){
+}else if(m.hold.IDENTIFIER==='food'){
 m.hold.ty = msY+m.hold.grabPointY;
 m.hold.tx = msX+m.hold.grabPointX;
 m.hold.draw(m.hold.pos);
@@ -20360,7 +20360,7 @@ pushMatrix();
 translate(200,550);
 scale(1);
 rotate(-10);
-thingImg('foodE','Popcorn');
+thingImg('food','Popcorn');
 popMatrix();
 pushMatrix();
 translate(150,540);
@@ -20378,7 +20378,7 @@ pushMatrix();
 translate(110,590);
 scale(0.6);
 rotate(-25);
-thingImg('foodE','Melon');
+thingImg('food','Melon');
 popMatrix();
 pushMatrix();
 translate(200,560);
@@ -20554,7 +20554,7 @@ pushMatrix();
 translate(110,575);
 scale(0.6);
 rotate(20);
-thingImg('foodE','Apple');
+thingImg('food','Apple');
 popMatrix();
 pushMatrix();
 translate(210,550);
@@ -20575,7 +20575,7 @@ pushMatrix();
 translate(380,330);
 scale(2);
 rotate(10);
-thingImg('foodE','Pineapple');
+thingImg('food','Pineapple');
 popMatrix();
 pushMatrix();
 translate(300,400);
