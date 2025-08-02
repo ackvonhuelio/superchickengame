@@ -44,16 +44,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.1/jquery.timeago.min.js"></script>
     <script id="PJS_code" type="data" data-width="600" data-height="600">
 
+
 //jshint ignore: start
 
 
 /*
 
         TODO
-
+        
     nada
-
-
+    
+    
 */
 
 // decrease if loading crashes
@@ -224,6 +225,50 @@ function manageKeys() {
 
 //}
 
+// text compatibility for some things
+background(255, 255, 255);
+fill(0,0,0);
+textSize(20);
+textAlign(CENTER,BASELINE);
+text("█",10,40,60,60);
+var a = get(40,30);
+var needTextWidthDown = false;
+var appleD = false;
+if(a.toString() !== "-1"){
+    appleD = true;
+}
+
+function textAlignCompatible(a,b){
+    // if(b === CENTER && appleD){
+    //     textAlign(a,BASELINE);
+    // }else{
+        textAlign(a,b);
+    //} 
+}
+
+function textCompatible(t,x,y,w,h){
+    if(!w){
+        text(t,x,y);
+    }else{
+        if(!appleD){
+        text(t,x,y,w,h);
+        }else{
+        var a = textDescent()*(1/0.012);
+        text(t,x,y+a/1.5,w,h);
+        }
+    }
+}
+function textCompatibleCenter(t,x,y,w,h){
+    if(!appleD){
+    textCompatible(t,x,y,w,h);
+    }else{
+    var a = textDescent()*(1/0.012);
+    // stroke(255, 0, 0);
+    // point(x,y);
+    textCompatible(t,x,y+a/3,w,h);
+    }
+}
+
 function chooseFrom(e){
 return e[floor(random(0,e.length))];
 }
@@ -249,7 +294,7 @@ for(var i = 0; i < text.length; i++){
 return ret;
 }
 function heart(x,y,s,a){
-
+    
     pushMatrix();
     translate(x,y);
     scale(s);
@@ -267,7 +312,7 @@ function heart(x,y,s,a){
     popMatrix();
 }
 function heartBg(x,y,s,a){
-
+    
     pushMatrix();
     translate(x,y);
     scale(s);
@@ -285,7 +330,7 @@ function heartBg(x,y,s,a){
     popMatrix();
 }
 function heartOutline(x,y,s,a){
-
+    
     pushMatrix();
     translate(x,y);
     scale(s);
@@ -299,7 +344,7 @@ function heartOutline(x,y,s,a){
     popMatrix();
 }
 function heartFill(x,y,s,a,m){
-
+   
     pushMatrix();
     translate(x,y);
     scale(s,s);
@@ -388,10 +433,10 @@ var a = ((30)*hour()+(6*minute())/60)-90;
 line(0,0,cos(a)*5,sin(a)*5);
 a = (6*minute())-90;
 line(0,0,cos(a)*10,sin(a)*10);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(t,0,4);
+textCompatible(t,0,4);
 popMatrix();
 }
 function dice(x,y,d){
@@ -505,8 +550,8 @@ fill(255, 208, 0);
 ellipse(0,0,22,22);
 fill(0,0,0);
 textSize(13);
-textAlign(CENTER,BASELINE);
-text(t,0,4);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible(t,0,4);
 popMatrix();
 }
 function projectile(){}
@@ -641,7 +686,6 @@ function shuffleArray(e) {
   }
   return (sra);
 }
-
 
 // pre-defining variables so I can use them in abilities
 function eachChickenInTeam(){}
@@ -812,7 +856,7 @@ background(255, 255, 255, 0);
     endShape();
     popMatrix();
     }
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     noFill();
@@ -830,7 +874,7 @@ background(255, 255, 255, 0);
     vertex(9,437);
     endShape();
     popMatrix();
-
+    
     popMatrix();
     stroke(0,0,0);
     strokeWeight(5);
@@ -922,7 +966,7 @@ var bases = {
 var types = {
     chicken:[
     // tier 1 {
-
+    
     // OMG
     // {
     // name: 'John Cena chicken',
@@ -946,7 +990,7 @@ var types = {
     // loadImg: function(e){
     // }
     // },
-
+    
     // basic (rip joe)
     {
     name: 'Basic chicken',
@@ -1041,7 +1085,7 @@ var types = {
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -1158,8 +1202,8 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
-
+    
+    
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -1532,7 +1576,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(0, 140, 227);
@@ -1566,7 +1610,7 @@ popMatrix();
     strokeWeight(5);
     fill(0, 140, 227);
     triangle(-15,29,-15,10,-2,17);
-
+    
     },
     loadImgBehind: function(e){
     },
@@ -1627,7 +1671,7 @@ popMatrix();
             }
 
             }
-
+            
             if(closest){
                 t.temporaryScale = 1.3;
                 closest[0].health+=lvl;
@@ -1637,7 +1681,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 stroke(0,0,0);
 strokeWeight(3);
@@ -1664,7 +1708,7 @@ popMatrix();
 
     },
     loadImgBehind: function(e){
-
+    
 pushMatrix();
 translate(7,0);
 rotate(6);
@@ -1690,7 +1734,7 @@ popMatrix();
             }
 
             }
-
+            
             if(closest){
                 strokeWeight(5);
                 stroke(0, 255, 238,200);
@@ -1734,7 +1778,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -1832,7 +1876,7 @@ rect(0,0,34,22,3);
 popMatrix();
     },
     loadImgBehind: function(e){
-
+    
     },
     animImg: function(e){
     pushMatrix();
@@ -1865,7 +1909,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(-8,-3);
 rotate(106);
@@ -1899,11 +1943,11 @@ noStroke();
 fill(0,0,0);
 ellipse(0,0,45,10);
 rect(-14,-30,28,30,6);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 textSize(20);
 fill(221, 255, 0);
 for(var i = 0; i < 2; i++){
-text('$',-1.25+i*2.5,-7);
+textCompatible('$',-1.25+i*2.5,-7);
 }
 popMatrix();
 
@@ -1973,10 +2017,6 @@ popMatrix();
     triangle(15,-6,15,14,35,9);
     strokeWeight(7);
     point(-8,-3);
-    fill(0,0,0);
-    textAlign(CENTER,CENTER);
-    textSize(10);
-    //text('LGM',0,0);
     }
     },
     // punk
@@ -2029,7 +2069,7 @@ line(7,8,15,7);
 popMatrix();
     },
     loadImg: function(e){
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(227, 0, 0);
@@ -2046,7 +2086,7 @@ popMatrix();
     line(-12,-8,-4,-7);
     for(var i = -37; i < 26; i+=6){
     pushMatrix();
-
+    
     rotate(i);
     strokeWeight(5);
     var num = 12;
@@ -2081,7 +2121,7 @@ popMatrix();
     loadImgBehind:function(e){
     },
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -2109,13 +2149,13 @@ rotate(0);
     strokeWeight(2);
     triangle(1,26,-4,9.5,6,9.5);
     noStroke();
-
+    
     fill(0,0,0);
     ellipse(1,13,2,2);
     ellipse(1,17,2,2);
     ellipse(1,21,2,2);
     popMatrix();
-
+    
     stroke(0,0,0);
     fill(227, 0, 0);
     ellipse(22,15,10,15);
@@ -2125,7 +2165,7 @@ rotate(0);
     triangle(15,-6,15,14,35,9);
     strokeWeight(7);
     point(-8,-3);
-
+    
     pushMatrix();
     translate(3,9);
     line(-34,-19,21,-34);
@@ -2134,7 +2174,7 @@ rotate(0);
     rotate(-19);
     rect(-11,-65,23,34);
     popMatrix();
-
+    
     pushMatrix();
     translate(-7,18);
     strokeWeight(2);
@@ -2182,7 +2222,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+       
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -2221,7 +2261,7 @@ rect(0,-2,8,20,3);
 rect(7,0,8,20,3);
 popMatrix();
 }
-
+   
 popMatrix();
     },
     loadImgBehind: function(e){
@@ -2318,7 +2358,7 @@ endShape(CLOSE);
 popMatrix();
     },
     loadImgBehind:function(e){
-
+    
 pushMatrix();
 fill(240, 0, 4);
 noStroke();
@@ -2347,10 +2387,10 @@ beginShape();
     endShape();
 fill(255, 255, 255);
 textSize(30);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 pushMatrix();
 rotate(-14);
-text('#1',-66,40);
+textCompatibleCenter('#1',-66,40);
 popMatrix();
 popMatrix();
 
@@ -2556,7 +2596,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
 stroke(0,0,0);
     strokeWeight(5);
     fill(87, 185, 255);
@@ -2623,18 +2663,18 @@ stroke(0,0,0);
     for(var i = 0; i < targsb.length; i++){
     targs.push(targsb[i]);
     }
-
+    
     targs = filt(targs,function(item){
     if(t.coopId.c[item]){
     return true;
     }
     });
-
+    
     for(var i = 0; i < lvl; i++){
     if(targs.length){
     var choice = floor(random(0,targs.length));
     var subj = t.coopId.c[targs[choice]];
-
+    
     if(subj){
     subj.attack += 1;
     subj.health += 2;
@@ -2644,12 +2684,12 @@ stroke(0,0,0);
     targs.splice(choice,1);
     }
     }
-
+    
     }
     },
     img:false,
         loadImg: function(e){
-
+    
 stroke(0,0,0);
 strokeWeight(5);
 fill(255, 255, 255);
@@ -2718,7 +2758,7 @@ triangle(15,-6,15,14,35,9);
     },
     img:false,
     loadImg: function(e){
-
+   
 stroke(0,0,0);
 strokeWeight(5);
 fill(255, 255, 255);
@@ -2790,13 +2830,13 @@ endShape(CLOSE);
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
     for(var q = 0; q < 2; q++){
     for(var i = -5; i < 10; i+=1.5){
     pushMatrix();
     translate(0,abs(i*2));
     rotate(i*5);
-
+    
     if(q === 1){
     noStroke();
     var a = abs(i*(255/2));
@@ -2816,7 +2856,7 @@ endShape(CLOSE);
     stroke(0,0,0);
     strokeWeight(5);
     }
-
+    
     beginShape();
     vertex(-9,-5);
     vertex(6,-21);
@@ -2828,7 +2868,7 @@ endShape(CLOSE);
     popMatrix();
     }
     }
-
+    
     stroke(0,0,0);
     strokeWeight(03);
     fill(227, 0, 0);
@@ -2840,12 +2880,12 @@ endShape(CLOSE);
     vertex(-21,-15);
     vertex(9,246);
     endShape();
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(255, 255, 255);
     ellipse(0,0,50,50);
-
+    
     pushMatrix();
     translate(1,-4);
     noStroke();
@@ -2859,18 +2899,18 @@ endShape(CLOSE);
     ellipse(12,7,20,10);
     popMatrix();
     popMatrix();
-
+    
     fill(255, 41, 41);
     rect(4,7,20,9,10);
     pushMatrix();
     rotate(28);
     ellipse(12,7,20,10);
     popMatrix();
-
+    
     popMatrix();
     fill(217, 217, 217);
     ellipse(-8,-3,12,19);
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(227, 0, 0);
@@ -2924,7 +2964,7 @@ ellipse(27,3,20,20);
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 scale(1.5);
 translate(-18,-20);
@@ -3020,7 +3060,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(227, 177, 177);
@@ -3042,7 +3082,7 @@ popMatrix();
     rotate(-10);
     rect(-2,8,5,8,2);
     popMatrix();
-
+    
     stroke(0,0,0);
     fill(227, 0, 0);
     ellipse(22,15,10,15);
@@ -3052,7 +3092,7 @@ popMatrix();
     triangle(15,-6,15,14,35,9);
     strokeWeight(7);
     point(-8,-3);
-
+    
     pushMatrix();
     translate(-21,6);
     scale(1.3);
@@ -3077,7 +3117,7 @@ popMatrix();
     vertex(2,-5);
     endShape(CLOSE);
     popMatrix();
-
+    
     },
     loadImgBehind: function(e){
 pushMatrix();
@@ -3125,7 +3165,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(227, 0, 0);
@@ -3139,7 +3179,7 @@ popMatrix();
     endShape();
     fill(255, 255, 255);
     ellipse(0,0,65,50);
-
+    
     fill(0,0,0);
     stroke(0,0,0);
     ellipse(16,11,10,24);
@@ -3150,7 +3190,7 @@ popMatrix();
     ellipse(24,10,9,15);
     fill(0, 255, 234,180);
     ellipse(24,21,5,22);
-
+    
     fill(255, 149, 0);
     stroke(0,0,0);
     strokeWeight(5);
@@ -3158,11 +3198,11 @@ popMatrix();
     strokeWeight(7);
     point(-22,-3);
     point(35,-15);
-
+    
     noFill();
     strokeWeight(3);
     arc(-3,13,30,10,86,162);
-
+    
     pushMatrix();
     translate(-48,27);
     rotate(-72);
@@ -3170,13 +3210,13 @@ popMatrix();
     stroke(0,0,0);
     fill(255, 184, 31);
     triangle(28,32,9,14,27,12);
-
+    
     strokeWeight(1);
     fill(181, 16, 16);
     ellipse(17,15,5,5);
     ellipse(24,19,5,5);
     ellipse(23,26,5,5);
-
+    
     pushMatrix();
     translate(6.5,10);
     rotate(-7);
@@ -3189,7 +3229,7 @@ popMatrix();
 
     },
     loadImgBehind: function(e){
-
+        
     pushMatrix();
     translate(9,-7);
     rotate(-19);
@@ -3197,13 +3237,13 @@ popMatrix();
     stroke(0,0,0);
     fill(255, 184, 31);
     triangle(28,32,9,14,27,12);
-
+    
     strokeWeight(1);
     fill(181, 16, 16);
     ellipse(17,15,5,5);
     ellipse(24,19,5,5);
     ellipse(23,26,5,5);
-
+    
     pushMatrix();
     translate(6.5,10);
     rotate(-7);
@@ -3256,7 +3296,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
 
     stroke(0,0,0);
     strokeWeight(5);
@@ -3282,7 +3322,7 @@ popMatrix();
     strokeWeight(5);
     fill(0, 225, 255);
     rect(-9,-11,37,15,5);
-
+    
     },
     loadImgBehind: function(e){
     },
@@ -3342,7 +3382,7 @@ popMatrix();
     ellipse(1,17,2,2);
     ellipse(1,21,2,2);
     popMatrix();
-
+    
     stroke(0,0,0);
     fill(227, 0, 0);
     ellipse(22,15,10,15);
@@ -3359,7 +3399,7 @@ popMatrix();
     pushMatrix();
     translate(-17,20);
     rotate(cos(frameCount*1.23)*5-6);
-
+    
     pushMatrix();
     translate(-24,-6);
     scale(0.8);
@@ -3368,13 +3408,13 @@ popMatrix();
     stroke(0,0,0);
     fill(255, 184, 31);
     triangle(28,32,9,14,27,12);
-
+    
     strokeWeight(1);
     fill(181, 16, 16);
     ellipse(17,15,5,5);
     ellipse(24,19,5,5);
     ellipse(23,26,5,5);
-
+    
     pushMatrix();
     translate(6.5,10);
     rotate(-7);
@@ -3384,7 +3424,7 @@ popMatrix();
     rect(0,0,21,4,2);
     popMatrix();
     popMatrix();
-
+    
     strokeWeight(2);
     stroke(191, 191, 191);
     fill(189, 189, 189,150);
@@ -3394,11 +3434,11 @@ popMatrix();
     strokeWeight(5);
     stroke(99, 99, 99);
     line(-20,0,20,0);
-
+    
     popMatrix();
     },
     },
-
+    
     // }
     // tier 4 {
     // librarian
@@ -3417,7 +3457,7 @@ popMatrix();
     },
     startOfBattle: function(t,lvl){
     if(t.coopPos || t.coopPos === 0){
-
+        
     var targsa = getLeftRight(t.coopPos);
     var targsb = getUpDown(t.coopPos);
     var targs = [];
@@ -3446,7 +3486,7 @@ popMatrix();
         attack: subj.attack,
         xp:subj.xp,
     };
-
+    
     chickenFeed(subj,t);
     subj.health = -99;
     updateStats(subj);
@@ -3476,13 +3516,13 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+        
     stroke(158, 158, 158);
     strokeWeight(2);
     fill(0, 255, 213,50);
     rect(-16,-10,15,11,3);
     line(-16,-8,-26,-10);
-
+    
     },
     loadImgBehind: function(e){
     },
@@ -3538,7 +3578,7 @@ popMatrix();
     startOfBattle: function(t,lvl){
     var num = 0;
     var from = false;
-
+    
     var all = eachChickenInTeam(1-t.teamId);
     for(var i = 0; i < all.length; i++){
     if(all[i].health > num){
@@ -3602,10 +3642,10 @@ stroke(0,0,0);
     point(-8,-3);
     },
     loadImgBehind:function(e){
-
+    
     },
     animImg:function(e){
-
+    
 pushMatrix();
 translate(0+cos(frameCount)*40,-30+sin(frameCount*1.2)*6);
 noStroke();
@@ -3825,7 +3865,7 @@ popMatrix();
     noStroke();
     fill(158, 145, 121);
     ellipse(0,0,50,50);
-
+    
     // engravings
     strokeWeight(2);
     stroke(189, 132, 0);
@@ -3840,12 +3880,12 @@ popMatrix();
     line(3,1,3,-8);
     stroke(242, 242, 242,50);
     line(3,1,3,-16);
-
+    
     noFill();
     stroke(0,0,0);
     strokeWeight(5);
     ellipse(0,0,50,50);
-
+    
     strokeWeight(3);
     fill(173, 130, 66);
     rect(17,8,10,15,2);
@@ -3855,8 +3895,8 @@ popMatrix();
     point(21,17);
     point(24,17);
     point(24,14);
-
-
+    
+    
 stroke(0,0,0);
 strokeWeight(2);
 fill(150, 112, 15);
@@ -3873,7 +3913,7 @@ fill(94, 94, 94);
     strokeWeight(5);
     triangle(15,-6,15,14,35,9);
     // front
-
+    
     fill(156, 156, 156);
     strokeWeight(2);
     stroke(0,0,0);
@@ -3974,9 +4014,9 @@ var a = 45;
 strokeWeight(1);
 line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
 
-
+    
     // front
-
+    
     },
     // animated images were too laggy
     animImgBehindTOLAGGY: function(e){
@@ -4004,7 +4044,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     }
     },
     animImgTOLAGGY: function(e){
-
+        
     fill(156, 156, 156);
     strokeWeight(2);
     stroke(0,0,0);
@@ -4229,11 +4269,11 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     ellipse(0,0,50,50);
     fill(97, 97, 97);
     //ellipse(22,15,10,15);
-
+    
     stroke(0,0,0);
     strokeWeight(7);
     point(-7,-3);
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(191, 191, 191,220);
@@ -4242,7 +4282,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     rotate(4);
     rect(0,0,39,12,2);
     popMatrix();
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(41, 41, 41);
@@ -4256,7 +4296,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     translate(18,12);
     ellipse(0,0,15,15);
     popMatrix();
-
+    
     pushMatrix();
     translate(-8,13);
     noFill();
@@ -4275,7 +4315,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     strokeWeight(2);
     point(0,0);
     popMatrix();
-
+    
 
     },
     loadImgBehind: function(e){
@@ -4344,23 +4384,23 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     triangle(10,-6,10,14,30,9);
     strokeWeight(7);
     point(-8,-3);
-
+    
     noStroke();
     fill(0, 255, 242,150);
     ellipse(0,0,40,40);
-
+    
     strokeWeight(8);
     stroke(0, 0, 0);
     noFill();
     ellipse(0,0,62,62);
     ellipse(0,0,38,38);
-
+    
     strokeWeight(12);
     stroke(219, 143, 13);
     noFill();
     ellipse(0,0,50,50);
-
-
+    
+    
     for(var i = 18; i < 360; i+=360/5){
         strokeWeight(3);
         stroke(0,0,0);
@@ -4368,7 +4408,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
         var a = 24;
         ellipse(cos(i)*a,sin(i)*a,8,8);
     }
-
+    
     strokeWeight(5);
     stroke(209, 161, 58);
     fill(149, 197, 201);
@@ -4384,7 +4424,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     line(-38,0,-30,10);
     line(38,10,30,0);
     line(38,0,30,-10);
-
+    
     strokeWeight(4);
     stroke(0, 0, 0);
     fill(128, 121, 107);
@@ -4396,7 +4436,7 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     strokeWeight(5);
     stroke(189, 189, 189);
     arc(0,-34,12,14,180,360);
-
+    
     popMatrix();
     },
     loadImgBehind: function(e){
@@ -4435,12 +4475,12 @@ line(-22,-6,-22+cos(a)*4,-6+sin(a)*4);
     feedProj(t);
     }
     }
-
+    
     },
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(13,17);
 rotate(-58);
@@ -4487,7 +4527,7 @@ popMatrix();
     noStroke();
     fill(255, 150, 253);
     triangle(-8,-5,-8,-1,-17,0);
-
+    
     stroke(0,0,0);
     strokeWeight(7);
     point(-8,-3);
@@ -4615,7 +4655,7 @@ triangle(38,-44,25,-43,38,-30);
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(-5,-37);
 rotate(-7);
@@ -4740,7 +4780,7 @@ popMatrix();
     },
     img:false,
     loadImg: function(e){
-
+    
 pushMatrix();
 translate(0,0);
 scale(1,0.8);
@@ -4851,7 +4891,7 @@ popMatrix();
     },
     faint: function(t,lvl){
     if((t.coopPos||t.coopPos === 0)){
-
+    
     var targsa = getLeftRight(t.coopPos);
     var targsb = getUpDown(t.coopPos);
     var targs = [];
@@ -4890,7 +4930,7 @@ popMatrix();
     },
     startOfTurn: function(t,lvl){
     if((t.coopPos||t.coopPos === 0)){
-
+    
     var targsa = getLeftRight(t.coopPos);
     var targsb = getUpDown(t.coopPos);
     var targs = [];
@@ -5089,7 +5129,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+        
 stroke(0,0,0);
     strokeWeight(5);
     fill(227, 0, 0);
@@ -5130,24 +5170,24 @@ stroke(0,0,0);
     fill(133, 120, 4);
     ellipse(1,19,2,2);
     ellipse(1,22,2,2);
-
+    
     fill(245, 24, 24);
     rect(-15,11.5,2,4);
     fill(255, 255, 255);
     rect(-13,11.5,2,4);
-
+    
     fill(212, 219, 4);
     ellipse(-7.5,14,2,3);
     triangle(-7.5,14,-10,13,-9,15);
     triangle(-7.5,14,-5,13,-6,15);
-
+    
     popMatrix();
-
+    
     noFill();
     stroke(0,0,0);
     strokeWeight(5);
     ellipse(0,0,50,50);
-
+    
     stroke(0,0,0);
     fill(227, 0, 0);
     ellipse(22,15,10,15);
@@ -5280,15 +5320,15 @@ popMatrix();
     rotate(-20);
     scale(0.9);
     noStroke();
-
-
-
-
+    
+    
+    
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(227, 0, 0);
     ellipse(11,-17,16,15);
-
+    
     strokeWeight(5);
     fill(219, 219, 219);
     rect(-30,-17,52,34,7);
@@ -5300,11 +5340,11 @@ popMatrix();
     fill(77, 77, 77);
     quad(-29,15,-29,25,-35,27,-35,13);
     quad(-29,-25,-29,-15,-35,-13,-35,-27);
-
+    
     strokeWeight(3);
     fill(227, 0, 0);
     ellipse(27,9,6,15);
-
+    
     fill(255, 149, 0);
     stroke(0,0,0);
     strokeWeight(5);
@@ -5360,12 +5400,12 @@ popMatrix();
     empty.push(i);
     }
     }
-
+    
     for(var i = 0; i < 3; i++){
         if(empty.length > 0){
             var num = floor(random(0,empty.length));
             var a2 = empty[num];
-
+            
     var a = new chicken(300,300,stats.chicken['Basic chicken']);
     a.xp = 0;
     a.teamId = t.teamId;
@@ -5379,13 +5419,13 @@ popMatrix();
     a.checkStatUp();
     t.coopId.c[a2] = a;
     summonCheck(a);
-
+            
             empty.splice(num,1);
         }
     }
-
+    
     }
-
+    
     },
     img:false,
     noBase:true,
@@ -5483,7 +5523,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
 stroke(0,0,0);
     strokeWeight(5);
     fill(227, 0, 0);
@@ -5495,7 +5535,7 @@ stroke(0,0,0);
     vertex(-21,-15);
     vertex(9,246);
     endShape();
-
+    
     noStroke();
     fill(235, 235, 235);
     ellipse(0,0,50,50);
@@ -5519,14 +5559,14 @@ stroke(0,0,0);
     strokeWeight(6);
     stroke(184, 184, 184);
     line(2,22,6,22);
-
+    
     popMatrix();
-
+    
     noFill();
     stroke(0,0,0);
     strokeWeight(5);
     ellipse(0,0,50,50);
-
+    
     stroke(0,0,0);
     fill(227, 0, 0);
     ellipse(22,15,10,15);
@@ -5667,25 +5707,25 @@ popMatrix();
     endShape();
     fill(175, 0, 184);
     ellipse(0,0,52,50);
-
+    
     pushMatrix();
     translate(-7,-4);
     fill(227, 0, 0);
     ellipse(19,22,8,9);
-
+    
     noStroke();
     fill(222, 222, 222);
     triangle(29,13,25,8,27,2);
     triangle(33,10,30,2,35,2);
     triangle(35,13,25,18,32,18);
-
+    
     fill(224, 185, 130);
     stroke(0,0,0);
     strokeWeight(5);
     triangle(15,10,15,19,27,17);
     triangle(15,-9,15,10,35,0);
     popMatrix();
-
+    
     strokeWeight(10);
     stroke(0, 0, 0);
     point(-8,-3);
@@ -5698,7 +5738,7 @@ popMatrix();
     strokeWeight(6);
     stroke(219, 51, 51);
     point(-8,-3);
-
+    
     },
     loadImgBehind: function(e){
     },
@@ -5788,7 +5828,7 @@ popMatrix();
     loadImgBehind: function(e){
     },
     animImg: function(e){
-
+    
     },
     },
     // thief
@@ -5866,12 +5906,12 @@ popMatrix();
     point(-8,-3);
 
 
-
+    
     pushMatrix();
     translate(-33,-7);
     rotate(-35);
     scale(0.8);
-
+    
     stroke(0,0,0);
     strokeWeight(6);
     fill(0, 0, 0);
@@ -5891,7 +5931,7 @@ popMatrix();
     vertex(9,-15);
     vertex(11,-12.5);
     endShape(CLOSE);
-
+    
     noStroke();
     fill(171, 160, 0);
     rect(0,-10,4,45);
@@ -5911,7 +5951,7 @@ popMatrix();
     endShape(CLOSE);
 
     popMatrix();
-
+    
 
     },
     loadImgBehind: function(e){
@@ -5919,7 +5959,7 @@ popMatrix();
     translate(28,11);
     rotate(24);
     scale(-1,1);
-
+    
     noStroke();
     fill(146, 252, 252);
     beginShape();
@@ -5943,8 +5983,8 @@ popMatrix();
     vertex(0,0);
     vertex(-40/6,-16);
     endShape(CLOSE);
-
-
+    
+    
     stroke(0,0,0);
     strokeWeight(3);
     noFill();
@@ -5964,7 +6004,7 @@ popMatrix();
     popMatrix();
     },
     animImg: function(e){
-
+    
     },
     },
     // pope
@@ -6006,8 +6046,8 @@ popMatrix();
     rotate(-8);
     var a = 1.2;
     scale(a,0.9);
-
-
+    
+    
     noStroke();
     fill(235, 235, 235);
     beginShape();
@@ -6018,7 +6058,7 @@ popMatrix();
     vertex(-24,-10);
     curveVertex(-15,20);
     endShape(CLOSE);
-
+    
     strokeWeight(2);
     stroke(0,0,0);
     fill(194, 162, 81);
@@ -6029,7 +6069,7 @@ popMatrix();
     vertex(0,-30);
     vertex(5,-28);
     endShape(CLOSE);
-
+    
     strokeWeight(2);
     stroke(0,0,0);
     fill(189, 157, 68);
@@ -6039,7 +6079,7 @@ popMatrix();
     vertex(-20,10);
     vertex(20,10);
     endShape(CLOSE);
-
+    
     for(var i = -13; i <= 13; i+=13){
         pushMatrix();
         scale(1/a,1);
@@ -6049,7 +6089,7 @@ popMatrix();
         ellipse(i,15,5,5);
         popMatrix();
     }
-
+    
     stroke(0,0,0);
     strokeWeight(4);
     noFill();
@@ -6061,17 +6101,17 @@ popMatrix();
     vertex(-24,-10);
     curveVertex(-15,19);
     endShape(CLOSE);
-
+    
     popMatrix();
-
+    
     pushMatrix();
     translate(-38,-27);
     rotate(-31);
-
+    
     stroke(186, 165, 89);
     strokeWeight(4);
     line(0,32,0,70);
-
+    
     stroke(0,0,0);
     strokeWeight(2);
     fill(186, 165, 89);
@@ -6110,7 +6150,7 @@ line(3,15,11,15);
 popMatrix();
     },
     animImg: function(e){
-
+    
     },
     },
     // game dev
@@ -6128,16 +6168,16 @@ popMatrix();
     },
     endTurn: function(t,lvl){
     if((t.coopPos||t.coopPos === 0)){
-
+    
     var targs = [];
     if(t.coopPos !== 2 && t.coopPos !== 5){
         if(!t.coopId.c[t.coopPos + 1]){
             targs.push(t.coopPos + 1);
         }
     }
-
+    
     for(var i = 0; i < targs.length; i++){
-
+    
     var a = getRandExact(tier,'chicken',300,300);
     if(lvl === 3){
     a.xp = 5;
@@ -6163,7 +6203,7 @@ popMatrix();
     img:false,
     noBase:true,
     loadImg: function(e){
-
+    
 stroke(0,0,0);
     strokeWeight(2);
     noFill();
@@ -6233,7 +6273,7 @@ popMatrix();
 
     stroke(0,0,0);
     strokeWeight(5);
-
+    
     fill(227, 0, 0);
     ellipse(22,15,10,15);
     fill(46, 142, 166);
@@ -6270,7 +6310,7 @@ triangle(15,-6,15,14,35,9);
     animImgStatic: function(e){
     },
     },
-
+    
     // }
     // tier 6 {
     // Golden
@@ -6294,7 +6334,7 @@ triangle(15,-6,15,14,35,9);
             num++;
         }
     }
-
+    
     t.temporaryScale = 1.4;
     gold += lvl*num;
     gold = round(gold);
@@ -6355,19 +6395,19 @@ triangle(15,-6,15,14,35,9);
     img:false,
     noBase:true,
     loadImg: function(e){
-
+        
 pushMatrix();
 translate(0,0);
 rotate(0);
 
-
+    
     pushMatrix();
     translate(0,25);
     scale(1,0.9);
     translate(0,-25);
-
+    
     pushMatrix();
-
+    
     stroke(0,0,0);
     strokeWeight(9);
     fill(0, 0, 0);
@@ -6390,14 +6430,14 @@ rotate(0);
     vertex(-25,0);
     endShape(CLOSE);
     popMatrix();
-
+   
     for(var i = 0; i < 3; i++){
     pushMatrix();
-
+    
     translate(2,0);
     scale(1-i*0.3);
     translate(-2,0);
-
+    
     noStroke();
     if(i === 0){
     fill(255, 191, 0);
@@ -6427,7 +6467,7 @@ rotate(0);
     popMatrix();
     }
     popMatrix();
-
+    
     fill(33, 0, 0);
     ellipse(22,15,10,15);
     fill(46, 27, 0);
@@ -6437,14 +6477,14 @@ rotate(0);
     noStroke();
     fill(0,0,0);
     arc(-8,-3,14,14,15,195);
-
+    
 
 popMatrix();
-
+   
 
     },
     animImg: function(e){
-
+    
 pushMatrix();
 translate(0,0);
 rotate(0);
@@ -6454,12 +6494,12 @@ pushMatrix();
     scale(1,0.9);
     scale(0.9);
     translate(0,-25);
-
-
-
+    
+    
+   
     for(var i = 0; i < 3; i++){
     pushMatrix();
-
+    
     translate(2,0);
     scale(1-i*0.3);
     translate(-2,0);
@@ -6493,7 +6533,7 @@ pushMatrix();
     popMatrix();
     }
     popMatrix();
-
+    
     fill(33, 0, 0);
     ellipse(22,15,10,15);
     fill(46, 27, 0);
@@ -6556,28 +6596,28 @@ popMatrix();
     vertex(-21,-14);
     vertex(9,246);
     endShape();
-
+    
     noStroke();
     fill(224, 187, 85);
     ellipse(0,18,31,8);
-
+    
     fill(9, 184, 0);
     ellipse(13,2,6,3);
     ellipse(7,6,6,3);
     ellipse(13,10,6,3);
     ellipse(7,14,6,3);
-
+    
     ellipse(-9,-8,6,3);
     ellipse(-15,-3,6,3);
     ellipse(-9,2,6,3);
     ellipse(-15,7,6,3);
     ellipse(-9,12,6,3);
-
+    
     stroke(9, 184, 0);
     strokeWeight(3);
     line(10,16,10,-1);
     line(-12,16,-12,-12);
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(127, 188, 235,150);
@@ -6585,9 +6625,9 @@ popMatrix();
     strokeWeight(4);
     fill(201, 223, 240);
     ellipse(0,-21,30,7);
-
-
-
+    
+    
+    
     fill(247, 190, 111);
     stroke(0,0,0);
     strokeWeight(5);
@@ -6596,7 +6636,7 @@ popMatrix();
     point(-8,-3);
     },
     animImgBehind: function(e){
-
+    
     pushMatrix();
 translate(cos(frameCount+e.id)*13,sin(frameCount*2+e.id)*4);
 scale(sin(frameCount+e.id),1);
@@ -6612,7 +6652,7 @@ point(-2,0);
 
 
 popMatrix();
-
+    
     },
     loadImgBehind: function(e){
     },
@@ -6666,9 +6706,9 @@ popMatrix();
     translate(0,25);
     scale(1,0.9);
     translate(0,-25);
-
+    
     pushMatrix();
-
+    
     stroke(0, 0, 0);
     strokeWeight(9);
     fill(0, 0, 0);
@@ -6677,24 +6717,24 @@ popMatrix();
     vertex(25,0);
     vertex(33,-16);
     vertex(21,-13);
-
+    
     vertex(23,-35);
     vertex(10,-22);
     vertex(-10,-48);
     vertex(-12,-21);
-
+    
     vertex(-36,-31);
     vertex(-25,0);
     endShape(CLOSE);
     popMatrix();
-
+   
     for(var i = 0; i < 3; i++){
     pushMatrix();
-
+    
     translate(2,0);
     scale(1-i*0.3);
     translate(-2,0);
-
+    
     noStroke();
     if(i === 0){
     fill(247, 255, 0);
@@ -6708,27 +6748,27 @@ popMatrix();
     vertex(25,0);
     vertex(33,-16);
     vertex(21,-13);
-
+    
     vertex(23,-35);
     vertex(10,-22);
     vertex(-10,-48);
     vertex(-12,-21);
-
+    
     vertex(-36,-31);
     vertex(-25,0);
     endShape(CLOSE);
     popMatrix();
     }
-
+    
     popMatrix();
-
+    
     fill(255, 193, 94);
     ellipse(22,15,10,15);
     fill(0, 230, 255);
     stroke(0,0,0);
     strokeWeight(5);
     triangle(15,-6,15,14,35,9);
-
+    
     strokeWeight(2);
     fill(0, 230, 255);
     rect(-16,-6,13,7,2);
@@ -6852,7 +6892,7 @@ e.electroAnim2 = a2;
     noStroke();
     fill(102, 102, 102);
     ellipse(0,0,20,20);
-
+    
     // var num = 7;
     // for(var i = 0; i < 360; i+=360/num){
     // pushMatrix();
@@ -6870,8 +6910,8 @@ e.electroAnim2 = a2;
     ellipse(22,15,10,15);
     fill(186, 186, 186);
     triangle(15,-6,15,14,35,9);
-
-
+    
+    
     strokeWeight(3);
     fill(245, 208, 122);
     ellipse(-8,-3,14,14);
@@ -6915,7 +6955,7 @@ e.electroAnim2 = a2;
     triangle(15,-6,15,14,35,9);
     },
     loadImgBehind: function(e){
-
+        
     },
     },
     // Earth
@@ -6942,10 +6982,10 @@ e.electroAnim2 = a2;
     loadImg: function(e){
     stroke(0,0,0);
     strokeWeight(5);
-
+   
     fill(120, 170, 255);
     ellipse(0,0,50,50);
-
+    
     noStroke();
     strokeWeight(2);
     stroke(13, 191, 10);
@@ -7001,8 +7041,8 @@ e.electroAnim2 = a2;
     stroke(0,0,0);
     strokeWeight(5);
     ellipse(0,0,50,50);
-
-
+    
+    
     fill(255, 195, 64);
     triangle(19,-6,19,14,35,9);
     stroke(0,0,0);
@@ -7018,14 +7058,14 @@ e.electroAnim2 = a2;
     // stroke(0,0,0);
     // fill(201, 201, 201);
     // ellipse(0,0,12,12);
-
+    
     // rotate(frameCount*1.2);
     // noStroke();
     // fill(163, 163, 163);
     // ellipse(-3,0,5,5);
     // ellipse(2,3,3,3);
     // ellipse(3,-2,3,3);
-
+    
     // strokeWeight(2);
     // stroke(0,0,0);
     // noFill();
@@ -7039,7 +7079,7 @@ e.electroAnim2 = a2;
     fill(255, 213, 0);
     pushMatrix();
     translate(-12,-25+cos(frameCount)*5);
-
+    
     rotate(frameCount*0.4);
     for(var i = 0; i < 360; i += 60){
         line(0,0,cos(i)*15,sin(i)*15);
@@ -7054,14 +7094,14 @@ e.electroAnim2 = a2;
     // stroke(0,0,0);
     // fill(201, 201, 201);
     // ellipse(0,0,12,12);
-
+    
     // rotate(frameCount*1.2);
     // noStroke();
     // fill(163, 163, 163);
     // ellipse(-3,0,5,5);
     // ellipse(2,3,3,3);
     // ellipse(3,-2,3,3);
-
+    
     // strokeWeight(2);
     // stroke(0,0,0);
     // noFill();
@@ -7070,7 +7110,7 @@ e.electroAnim2 = a2;
     // popMatrix();
     },
     loadImgBehind: function(e){
-
+    
     },
     },
     // Lava
@@ -7192,7 +7232,7 @@ popMatrix();
     strokeWeight(7);
     stroke(255, 225, 0);
     point(-8,-3);
-
+    
     var num = 4;
     for(var i = 0; i < 160; i += 160/num){
     pushMatrix();
@@ -7299,7 +7339,7 @@ line(a,0,a,6);
 var a = 76;
 line(a,-8,a,0);
     popMatrix();
-
+    
     noFill();
     strokeWeight(5);
     stroke(34, 89, 0);
@@ -7312,7 +7352,7 @@ line(a,-8,a,0);
     triangle(15,-6,15,14,35,9);
     strokeWeight(7);
     popMatrix();
-
+    
     point(-16,-4);
     },
     animImgBehind: function(e){
@@ -7365,9 +7405,9 @@ line(a,-8,a,0);
     translate(0,25);
     scale(1,0.9);
     translate(0,-25);
-
+    
     pushMatrix();
-
+    
     stroke(0,0,0);
     strokeWeight(9);
     fill(0, 0, 0);
@@ -7390,14 +7430,14 @@ line(a,-8,a,0);
     vertex(-25,0);
     endShape(CLOSE);
     popMatrix();
-
+   
     for(var i = 0; i < 3; i++){
     pushMatrix();
-
+    
     translate(2,0);
     scale(1-i*0.3);
     translate(-2,0);
-
+    
     noStroke();
     if(i === 0){
     fill(119, 252, 232);
@@ -7427,7 +7467,7 @@ line(a,-8,a,0);
     popMatrix();
     }
     popMatrix();
-
+    
     fill(0, 67, 89);
     ellipse(22,15,10,15);
     fill(101, 210, 212);
@@ -7435,12 +7475,12 @@ line(a,-8,a,0);
     strokeWeight(5);
     triangle(15,-6,15,14,35,9);
     strokeWeight(2);
-
+    
     fill(242, 243, 255);
     arc(-8,-3,14,14,160,380);
     line(-8,-3,-8+cos(155)*7,-3+sin(155)*7);
     line(-8,-3,-8+cos(385)*7,-3+sin(385)*7);
-
+    
     }
     },
     // }
@@ -7476,7 +7516,7 @@ line(a,-8,a,0);
     loadImg: function(e){
     strokeWeight(5);
     stroke(0,0,0);
-
+    
     fill(79, 49, 0);
     rect(-20,-20,40,40,5);
     egg(2.5,6,0.13);
@@ -7622,10 +7662,10 @@ line(a,-8,a,0);
     strokeWeight(6);
     line(0,-20,0,44);
     line(-30,0,30,0);
-
+    
     stroke(0,0,0);
     strokeWeight(2);
-
+    
     pushMatrix();
     translate(-8,25);
     rotate(30);
@@ -7639,7 +7679,7 @@ line(a,-8,a,0);
     stroke(0,0,0);
     fill(0, 216, 227);
     rect(-5,-10,10,20,3);
-
+    
     popMatrix();
     pushMatrix();
     translate(8,25);
@@ -7654,10 +7694,10 @@ line(a,-8,a,0);
     stroke(0,0,0);
     fill(0, 216, 227);
     rect(-5,-10,10,20,3);
-
+    
     popMatrix();
-
-
+    
+    
     pushMatrix();
     translate(-17,1);
     rotate(73);
@@ -7672,7 +7712,7 @@ line(a,-8,a,0);
     fill(199, 109, 109);
     rect(-5,-10,10,20,3);
     popMatrix();
-
+    
     pushMatrix();
     translate(17,1);
     rotate(-73);
@@ -7689,18 +7729,18 @@ line(a,-8,a,0);
     popMatrix();
     fill(199, 109, 109);
     rect(-10,-12,20,30,10);
-
-
+    
+    
     strokeWeight(2);
     fill(0, 216, 227);
     rect(-6,-8,3,20,2);
     rect(3,-8,3,20,2);
     strokeWeight(2);
     rect(-10,8,20,10,10);
-
+    
     fill(212, 212, 212);
     ellipse(0,-16,20,20);
-
+    
     stroke(230, 0, 0);
     strokeWeight(4);
     point(-4,-16);
@@ -7710,7 +7750,7 @@ line(a,-8,a,0);
     line(6,-21,2,-19);
     noFill();
     arc(0,-10,10,6,200,340);
-
+    
     stroke(0,0,0);
     strokeWeight(2);
     pushMatrix();
@@ -7731,10 +7771,10 @@ line(a,-8,a,0);
     // scale(0.8);
     // var a2 = 0;
     // if(sin(frameCount/5) > 0.5){
-
+    
     // if(!e.sayAnim){
     // var a4 = ['Me gusta KFC','GRRR','RAHHH','Be scared!','Juicy chickens\nyum yum','Chickens live\n5-10 years!'];
-
+    
     // var q = floor(random(0,a4.length));
     // e.sayAnim = a4[q];
     // }
@@ -7749,8 +7789,8 @@ line(a,-8,a,0);
     // }
     // fill(0,0,0,a3);
     // textSize(5);
-    // textAlign(CENTER,CENTER);
-    // text(e.sayAnim,0,15);
+    // textAlignCompatible(CENTER,CENTER);
+    // textCompatibleCenter(e.sayAnim,0,15);
     // }else{
     //     e.sayAnim = false;
     // }
@@ -7802,16 +7842,16 @@ line(a,-8,a,0);
     loadImg: function(e){
     },
     animImgBehind: function(e){
-
-
-
+        
+        
+    
     var p = 0;
     if(e.heldTimer){
         p=pow(e.heldTimer*2,1.5);
     }
     var h = cos(frameCount+e.id+p)*10;
     var h2 = cos((frameCount+e.id+p)*2)*3+1;
-
+    
     var pos = [
         {
         x:-7,
@@ -7855,14 +7895,14 @@ line(a,-8,a,0);
     point(5,-1);
     popMatrix();
     }
-
+    
     strokeWeight(5);
     stroke(0,0,0);
     fill(161, 161, 161,80);
     rect(-20,-20,40,40,5);
     //egg(2.5,6,0.13);
-
-
+    
+    
     strokeWeight(5);
     stroke(0,0,0);
     pushMatrix();
@@ -7870,7 +7910,7 @@ line(a,-8,a,0);
     translate(0,-20);
     rotate(h);
     translate(0,20);
-
+    
     stroke(0,0,0);
     strokeWeight(5);
     fill(119, 199, 174);
@@ -7902,7 +7942,7 @@ line(a,-8,a,0);
     startOfBattle: function(t,lvl){
     t.temporaryScale = 1.3;
     t.temporaryRot = -20;
-
+    
     for(var i = 0; i < 2; i++){
     var all = eachChickenInTeam(i);
     for(var q = 0; q < all.length; q++){
@@ -7913,7 +7953,7 @@ line(a,-8,a,0);
     throwAbilityProj(t,all[q],12,lvl+1,'dart');
     }
     }
-
+    
     },
     img:false,
     crucialAnim:true,
@@ -7932,7 +7972,7 @@ line(a,-8,a,0);
     line(10,40,0,-10);
     line(-3,10,5,16);
     line(-7,29,5,16);
-
+    
     stroke(186, 186, 186);
     noFill();
     strokeWeight(2);
@@ -7996,10 +8036,10 @@ line(a,-8,a,0);
     var num = 30;
     var a = cos(frameCount);
     var a2 = sin(frameCount*1.5)*num;
-
+    
     fill(255+a2-num, 0, 242+a2-num);
     arc(0,-7,23,24,0+a*10,180+a*10);
-
+    
     },
     loadImg: function(e){
     strokeWeight(6);
@@ -8007,7 +8047,7 @@ line(a,-8,a,0);
     line(0,7,0,10);
     noStroke();
     fill(84, 84, 84);
-
+    
     beginShape();
     vertex(-13,-15);
     vertex(-5,-10);
@@ -8072,12 +8112,12 @@ line(a,-8,a,0);
     stroke(102, 102, 102);
     line(30,6,22,6);
     line(30,15,22,15);
-
+    
     stroke(0,0,0);
     fill(252, 175, 98,220);
     rect(0,0,20,20,6);
     stroke(191, 191, 191);
-
+    
     stroke(0, 0, 0);
     strokeWeight(7);
     line(10,-3,10,-31);
@@ -8086,7 +8126,7 @@ line(a,-8,a,0);
     line(11,-3,11,-30);
     line(40,-30,11,-30);
     line(40,-30,40,0);
-
+    
     stroke(191, 191, 191);
     strokeWeight(4);
     line(10,-3,10,-31);
@@ -8096,7 +8136,7 @@ line(a,-8,a,0);
     line(11,-3,11,-30);
     line(40,-30,11,-30);
     line(40,-30,40,0);
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(255, 0, 0);
@@ -8119,7 +8159,7 @@ line(a,-8,a,0);
     triangle(-1,0,3,-7,4,0);
     popMatrix();
     }
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(217, 237, 0);
@@ -8129,7 +8169,7 @@ line(a,-8,a,0);
     strokeWeight(2);
     fill(245, 245, 245);
     ellipse(50,10,30,10);
-
+    
     pushMatrix();
     translate(57,-17);
     noFill();
@@ -8148,7 +8188,7 @@ line(a,-8,a,0);
     strokeWeight(2);
     point(0,0);
     popMatrix();
-
+    
     pushMatrix();
     scale(0.8);
     translate(35,10);
@@ -8157,13 +8197,13 @@ line(a,-8,a,0);
     stroke(0,0,0);
     fill(255, 184, 31);
     triangle(28,32,9,14,27,12);
-
+    
     strokeWeight(1);
     fill(181, 16, 16);
     ellipse(17,15,5,5);
     ellipse(24,19,5,5);
     ellipse(23,26,5,5);
-
+    
     pushMatrix();
     translate(6.5,10);
     rotate(-7);
@@ -8173,7 +8213,7 @@ line(a,-8,a,0);
     rect(0,0,21,4,2);
     popMatrix();
     popMatrix();
-
+    
     strokeWeight(2);
     stroke(0,0,0);
     fill(0, 219, 219,100);
@@ -8184,8 +8224,8 @@ line(a,-8,a,0);
     ellipse(47,-7,6,6);
     fill(255, 48, 238);
     rect(53,-9,10,4,2);
-
-
+    
+    
     popMatrix();
     },
     animImgBehind: function(e){
@@ -8218,7 +8258,7 @@ line(a,-8,a,0);
     t.temporaryRot = -20;
     var num = 0;
     var from = false;
-
+    
     var all = eachChickenInTeam(1-t.teamId);
     for(var i = 0; i < all.length; i++){
     if(all[i].health > num){
@@ -8227,7 +8267,7 @@ line(a,-8,a,0);
     }
     }
     if(num && from){
-
+    
     from.health -= lvl*8;
     throwAbilityProj(t,from,7,lvl*8,'missile');
     }
@@ -8403,7 +8443,7 @@ rect(-22,-35,10,70,5);
     //vertex(21,-57);
     endShape();
     arc(27,-53,18,14,180,270);
-
+    
     fill(201, 201, 201);
     ellipse(-40,30,10,10);
     fill(130, 232, 255);
@@ -8411,7 +8451,7 @@ rect(-22,-35,10,70,5);
     rect(-45,-20,48,25,2);
     rect(20,-20,25,25,2);
     rect(12,-40,24,10,2);
-
+    
     strokeWeight(2);
     for(var i = 0; i < 4; i++){
         var a = (i+1)*56/5;
@@ -8423,7 +8463,7 @@ rect(-22,-35,10,70,5);
     ellipse(-34,-2,7,7);
     fill(70, 175, 250);
     rect(-23,-15,17,15,2);
-
+    
     stroke(0,0,0);
     fill(255, 234, 0);
     pushMatrix();
@@ -8477,7 +8517,7 @@ rect(-22,-35,10,70,5);
     var options = allMyChickensExceptForArray([]);
     if(options.length > 0){
     var select = chooseFrom(options);
-
+    
     shop[0].frozens = [];
     cleanShop(0);
     shop[0].data = [];
@@ -8486,7 +8526,7 @@ rect(-22,-35,10,70,5);
         var a = new chicken(t.x,t.y,stats.chicken[select.name]);
         shop[0].data.push(a);
     }
-
+    
     }
     }else{
     t.bad = 30;
@@ -8518,11 +8558,11 @@ rect(-22,-35,10,70,5);
     strokeWeight(10);
     point(-8,-3);
     popMatrix();
-
+    
     noStroke();
     fill(87, 213, 255,100);
     rect(-20,-38,40,68);
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     fill(230, 230, 230);
@@ -8539,14 +8579,14 @@ rect(-22,-35,10,70,5);
     stroke(255, 213, 0);
     arc(20,-5,30,70,-90,90);
     arc(-20,-5,30,70,90,270);
-
+    
     strokeWeight(2);
     fill(0, 255, 13);
     ellipse(0,-35,5,5);
     fill(225, 255, 0);
     ellipse(0,25,5,5);
     popMatrix();
-
+    
     },
     animImgBehind: function(e){
     pushMatrix();
@@ -8611,7 +8651,7 @@ rect(-22,-35,10,70,5);
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < lvl; i++){
-        var a = new foodItem(t.x,t.y,stats.food.Chocolate);
+        var a = new food(t.x,t.y,stats.food.Chocolate);
         shop[1].data.push(a);
     }
     }else{
@@ -8632,7 +8672,7 @@ rect(-22,-35,10,70,5);
     fill(0,0,0);
     triangle(19.5,-17,14,-9,25,-9);
     triangle(19.5,-22,15,-14,24,-14);
-
+    
     noStroke();
     fill(3, 171, 42);
     triangle(19.5,-17,14,-9,25,-9);
@@ -8643,7 +8683,7 @@ rect(-22,-35,10,70,5);
     ellipse(19,-13.5,2,2);
     ellipse(23,-11,2,2);
     ellipse(16,-10,2,2);
-
+    
     pushMatrix();
     strokeWeight(1);
     stroke(0,0,0);
@@ -8656,14 +8696,14 @@ rect(-22,-35,10,70,5);
     }
     endShape(CLOSE);
     popMatrix();
-
+    
     stroke(0, 0, 0);
     strokeWeight(3);
     fill(219, 46, 46);
     rect(-3,-3,45,45,1);
-
-
-
+    
+    
+    
     stroke(240, 221, 168);
     strokeWeight(1);
     fill(196, 78, 78);
@@ -8673,17 +8713,17 @@ rect(-22,-35,10,70,5);
         }
     }
     fill(255, 230, 0);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(3);
     stroke(0,0,0);
     strokeWeight(2);
     for(var i = 0; i < 5; i++){
         for(var q = 0; q < 5; q++){
-            text('~~',i*8+3,q*8+4);
+            textCompatibleCenter('~~',i*8+3,q*8+4);
             point(i*8+6,q*8+4);
         }
     }
-
+    
     popMatrix();
     },
     animImgBehind: function(e){
@@ -9010,7 +9050,7 @@ rect(-22,-35,10,70,5);
     img:false,
     loadImg: function(e){
         pushMatrix();
-
+    
     rotate(52);
     scale(1.2);
     translate(-8,-19);
@@ -9067,20 +9107,20 @@ rect(-22,-35,10,70,5);
     stroke(0,0,0);
     fill(154, 232, 146);
     ellipse(0,0,60,60);
-
+    
     for(var i = 1; i < 3; i++){
     noFill();
     strokeWeight(2);
     stroke(13, 143, 28);
     ellipse(0,0,60-i*23,60);
     }
-
-
+    
+    
     noFill();
     strokeWeight(8);
     stroke(0,0,0);
     ellipse(0,0,60,60);
-
+    
     stroke(102, 61, 10);
     line(5,-20,20,-35);
     noStroke();
@@ -9136,7 +9176,7 @@ rect(-22,-35,10,70,5);
     rotate(226);
     arc(0,0,57,143,240,271);
     popMatrix();
-
+    
     stroke(0,0,0);
     fill(26, 212, 100);
     pushMatrix();
@@ -9149,27 +9189,27 @@ rect(-22,-35,10,70,5);
     rotate(-30);
     ellipse(11,1,30,15);
     popMatrix();
-
+    
     stroke(0,0,0);
     fill(213, 0, 255);
     ellipse(-25,-30,20,20);
     ellipse(7,-24,20,20);
     ellipse(-9,-25,20,20);
-
+    
     ellipse(-7,30,20,20);
-
+    
     ellipse(-16,18,20,20);
     ellipse(0,16,20,20);
-
+    
     ellipse(-24,1,20,20);
     ellipse(9,1,20,20);
     ellipse(-8,5,20,20);
-
+    
     ellipse(-29,-15,20,20);
     ellipse(17,-15,20,20);
     ellipse(4,-11,20,20);
     ellipse(-13,-12,20,20);
-
+    
     popMatrix();
     }
     },
@@ -9242,7 +9282,7 @@ vertex(142,444);
     vertex(320,441);
 endShape(CLOSE);
 popMatrix();
-
+    
     //stroke(0,0,0);
     strokeWeight(2);
     noStroke();
@@ -9258,12 +9298,12 @@ popMatrix();
     for(var i = -90; i < 30; i+=amt){
     line(-cos(i)*12,sin(i)*15,-cos(i)*12+cos(55)*a2[(i+90)/amt],sin(i)*15+sin(55)*a2[(i+90)/amt]);
     }
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     noFill();
     ellipse(0,0,24,30);
-
+    
     popMatrix();
     }
     },
@@ -9300,7 +9340,7 @@ popMatrix();
     img:false,
     loadImg: function(e){
         pushMatrix();
-
+    
     rotate(52);
     scale(1.2);
     translate(-8,-19);
@@ -9364,7 +9404,7 @@ popMatrix();
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < 2; i++){
-        var a = new foodItem(t.x,t.y,stats.food.Oil);
+        var a = new food(t.x,t.y,stats.food.Oil);
         shop[1].data.push(a);
         shop[1].data[shop[1].data.length-1].price = 1;
     }
@@ -9375,8 +9415,8 @@ popMatrix();
     translate(0,-5);
     rotate(0);
     scale(0.7);
-
-
+    
+    
     var corn = function(x,y,r){
     pushMatrix();
     translate(x,y);
@@ -9395,7 +9435,7 @@ popMatrix();
     ellipse(-6,4,6,6);
     popMatrix();
     };
-
+    
     noFill();
     stroke(0,0,0);
     strokeWeight(6);
@@ -9405,12 +9445,12 @@ popMatrix();
     vertex(-21,-15);
     vertex(0,-30);
     endShape(CLOSE);
-
+    
     for(var i = 0; i < 50; i++){
         var a = sin(i*128)*360;
         corn(0+cos(a)*23*cos(i*123),-15+sin(a)*22*cos(i*123),sin(i*20)*20);
     }
-
+    
     stroke(0,0,0);
     strokeWeight(2);
     var a = false;
@@ -9439,7 +9479,7 @@ popMatrix();
     vertex(30,-15);
     vertex(0,0);
     endShape(CLOSE);
-
+    
     popMatrix();
     }
     },
@@ -9448,6 +9488,7 @@ popMatrix();
 };
 
 var TESTINGCHICKEN = 'Light chicken';
+
 
 // nest image load
 {
@@ -9681,15 +9722,15 @@ strokeWeight(2);
     }
     var yd = sqrt(pow(-3,2)+pow(w+(d)*(w/2),2));
     var gInvert = 0;
-
+    
     pSeg.push([(pSeg[pSeg.length-1][0]+w)+(d)*(w/2),(pSeg[pSeg.length-1][1]-9+yd)]);
-
-
-
+    
+        
+    
     line(pSeg[pSeg.length-2][0],pSeg[pSeg.length-2][1],pSeg[pSeg.length-1][0],pSeg[pSeg.length-1][1]);
-
+    
  }
-
+ 
 }
 var grassLoads = [[],[]];
 
@@ -9916,11 +9957,11 @@ gold -= n;
 coinAnim = {r:random(-30,30),s:1.4,rs:0};
 }
 function killChicken(e){
-
+    
     if(e.origin){
-
+        
     e.origin[0].c[e.origin[1]] = false;
-
+    
     }
     e.killed = true;
 for(var i = chickens.length-1; i > -1; i--){
@@ -10019,7 +10060,7 @@ if(tc.stats[e]){
             f(theCoop.c[q2]);
             }
         }
-
+        
     }
     for(var q = 0; q < myContraptions.length; q++){
         if(exclude(myContraptions[q])){
@@ -10087,7 +10128,7 @@ this.hat = hats[floor(random(0,hats.length))];
 this.id = random(0,1000000000);
 contraptions.push(this);
 }
-function foodItem(x,y,t){
+function food(x,y,t){
 //println(t);
 this.x = x;
 this.y = y;
@@ -10163,7 +10204,7 @@ case 'contraption':
 ret = new contraption(x,y,t);
 break;
 case 'food':
-ret = new foodItem(x,y,t);
+ret = new food(x,y,t);
 }
 return ret;
 }
@@ -10430,7 +10471,7 @@ popMatrix();
         var angle = atan2((this.y+this.vy-a2*(h+cos(this.id)*20)) - (this.y-a*(h+cos(this.id)*20)), (this.x+this.vx)-this.x);
         rotate(angle);
         scale(0.15);
-
+        
         pushMatrix();
 rotate(21);
 noStroke();
@@ -10493,7 +10534,7 @@ popMatrix();
         var angle = atan2((this.y+this.vy-a2*(h+cos(this.id)*20)) - (this.y-a*(h+cos(this.id)*20)), (this.x+this.vx)-this.x);
         rotate(angle);
         scale(0.15);
-
+        
         pushMatrix();
 rotate(21);
 noStroke();
@@ -10636,9 +10677,9 @@ popMatrix();
         break;
         case 'food':
         rotate((frameCount*8)*sin(this.id));
-        textAlign(CENTER,BASELINE);
+        textAlignCompatible(CENTER,BASELINE);
         textSize(20);
-        text('🍔',0,0);
+        textCompatible('🍔',0,0);
         break;
         case 'xp':
         rotate((frameCount*8)*sin(this.id));
@@ -10676,7 +10717,7 @@ popMatrix();
         break;
     }
     popMatrix();
-
+    
 };
 effect.prototype.draw = function() {
     pushMatrix();
@@ -10708,7 +10749,7 @@ effect.prototype.draw = function() {
     strokeWeight(10);
     stroke(255, 191, 0);
     ellipse(0,-25,45,15);
-
+    
         }
         break;
         case 'egg splatter':
@@ -10742,8 +10783,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10778,8 +10819,8 @@ effect.prototype.draw = function() {
         var num2 = -this.data.differenceHealth;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10806,10 +10847,10 @@ effect.prototype.draw = function() {
         popMatrix();
         fill(54, 0, 48,255*oneToZero);
         textSize(5);
-        textAlign(CENTER,CENTER);
+        textAlignCompatible(CENTER,CENTER);
         pushMatrix();
         rotate((cos(this.id)*70)*oneToZero);
-        text('+'+this.data.amount+' XP',0,0);
+        textCompatibleCenter('+'+this.data.amount+' XP',0,0);
         popMatrix();
         }
         break;
@@ -10825,7 +10866,7 @@ effect.prototype.draw = function() {
         }
         scale(abs(sin(this.id))+1,abs(sin(this.id*2))+1);
         //scale(1-(this.maxL-this.l)/(this.maxL*3));
-
+        
         pushMatrix();
         scale(2);
         rotate(this.id);
@@ -10842,8 +10883,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10874,8 +10915,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10906,8 +10947,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10938,8 +10979,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -10961,7 +11002,7 @@ effect.prototype.draw = function() {
         }
         if(this.data.differenceHealth > num){
         heart(this.data.hit.x+cos(this.id+num*1234)*zeroToOne*50,this.data.hit.y+sin(this.id+num*1234)*zeroToOne*50,0.1,oneToZero*255);
-
+        
         }
         num++;
         }
@@ -10980,8 +11021,8 @@ effect.prototype.draw = function() {
         var num2 = this.data.damage;
         fill(255, 0, 0, 255*oneToZero);
         textSize(25);
-        textAlign(CENTER,CENTER);
-        text(num2,0,0);
+        textAlignCompatible(CENTER,CENTER);
+        textCompatibleCenter(num2,0,0);
         popMatrix();
         }
         break;
@@ -11042,10 +11083,10 @@ effect.prototype.draw = function() {
         rect(-18,-20,36,40,5);
         fill(0,0,0,255*oneToZero);
         textSize(10);
-        textAlign(CENTER,BASELINE);
-        text('KFC',0,10);
+        textAlignCompatible(CENTER,BASELINE);
+        textCompatible('KFC',0,10);
         textSize(15);
-        //text('㋛',0,-4);
+        //textCompatible('㋛',0,-4);
 
         }
         break;
@@ -11063,8 +11104,8 @@ effect.prototype.draw = function() {
         strokeWeight(3);
         fill(0, 0, 0,255*oneToZero);
         // textSize(50);
-        // textAlign(CENTER,CENTER);
-        // text("⚙",0,0);
+        // textAlignCompatible(CENTER,CENTER);
+        // textCompatibleCenter("⚙",0,0);
         pushMatrix();
     stroke(99, 99, 99,255*oneToZero);
     strokeWeight(12);
@@ -11078,7 +11119,7 @@ effect.prototype.draw = function() {
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     noStroke();
     fill(173, 173, 173,255*oneToZero);
     ellipse(0,0,45,45);
@@ -11090,13 +11131,13 @@ effect.prototype.draw = function() {
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     stroke(99, 99, 99,255*oneToZero);
     strokeWeight(6);
     fill(10, 173, 56);
     ellipse(0,0,15,15);
-
-
+    
+    
     popMatrix();
         }
         break;
@@ -11132,7 +11173,7 @@ projectile.prototype.registerHit = function(){
     //println(this.data.damage + ' , '+ this.data.owner.attack);
     this.data.target.temporaryScale = 1.5;
     this.data.target.temporaryRot = -30;
-
+    
     if(this.data.damage > 0){
     this.data.target.dHealth -= this.data.damage;
     }else{
@@ -11140,7 +11181,7 @@ projectile.prototype.registerHit = function(){
     }
     this.data.target.dAttack = this.data.target.attack;
     this.data.target.checkStatUp();
-
+    
 this.kill();
 };
 projectile.prototype.doRegistering = function(){
@@ -11150,17 +11191,17 @@ if(this.data.owner.attack){
 }
 };
 projectile.prototype.update = function(){
-
+    
     for(var q = 0; q < speed; q++){
     this.x += this.vx;
     this.y += this.vy;
-
+    
     if(this.data.g||this.data.g === 0){
         this.vy += this.data.g;
     }else{
         this.vy += 0.1;
     }
-
+    
     if(this.data.target && (this.data.g === 0||this.vy >= 0)){
         if(dist(this.x,this.y,this.data.target.x,this.data.target.y)<=25 || this.data.target === m.hold){
             if(this.data.target === m.hold){
@@ -11170,10 +11211,10 @@ projectile.prototype.update = function(){
             this.registerHit();
             q = speed+1;
         }
-
+        
     }
     }
-
+    
     this.draw();
     this.life++;
     if(this.data.data.bulletLife){
@@ -11193,8 +11234,8 @@ projectile.prototype.update = function(){
     this.registerHit();
     this.kill();
     }
-
-
+    
+    
 };
 projectile.prototype.kill = function(){
 for(var i = 0; i < projs.length; i++){
@@ -11240,11 +11281,11 @@ chicken.prototype.draw = function(e,noAnimDraw){
     if(this.attack < 0){
     this.attack = 0;
     }
-
+    
     this.radius = 25;
-
+    
     this.checkStatUp();
-
+    
     pushMatrix();
     translate(this.x,this.y);
     var saveDir = this.dir;
@@ -11254,10 +11295,10 @@ chicken.prototype.draw = function(e,noAnimDraw){
     }else{
         this.dir = 1;
     }
-
+    
     scale(this.stats.size);
     var d = atan2(this.py-this.y,this.px-this.x);
-
+    
     if(!this.cardReveal && this.cardReveal !== 0){
     this.cardReveal = 1;
     }
@@ -11269,7 +11310,7 @@ chicken.prototype.draw = function(e,noAnimDraw){
     }
     if(this.highlighted){
         this.highlightAddScale = lerp(this.highlightAddScale, 1.12,0.15);
-
+        
     }else{
     this.highlightAddScale = lerp(this.highlightAddScale, 1,0.15);
     }
@@ -11284,7 +11325,7 @@ chicken.prototype.draw = function(e,noAnimDraw){
     scale(this.highlightAddScale);
     }
     pushMatrix();
-
+    
     if(!delag2){
     if(!this.curStretch){
         this.curStretch = {x:1,y:1};
@@ -11295,10 +11336,10 @@ chicken.prototype.draw = function(e,noAnimDraw){
     }
     this.curStretch.x = lerp(this.curStretch.x,(abs(this.x-this.px)/stretchLimit)+1,0.1);
     this.curStretch.y = lerp(this.curStretch.y,(abs(this.y-this.py)/stretchLimit)+1,0.1);
-
+    
     scale(this.curStretch.x,this.curStretch.y);
     }
-
+    
     translate(0,22);
     rotate(sin(frameCount*this.shakeIntensity+this.id)*this.shakeRad);
     this.shakeIntensity = 1.1;
@@ -11336,10 +11377,10 @@ chicken.prototype.draw = function(e,noAnimDraw){
         this.bad--;
         fill(200, 0, 0);
         textSize(20);
-        textAlign(CENTER,BASELINE);
+        textAlignCompatible(CENTER,BASELINE);
         pushMatrix();
         scale(saveDir,1);
-        //text(this.badMessage,0,0
+        //textCompatible(this.badMessage,0,0
         noStroke();
         fill(255, 3, 3, 100);
         ellipse(0,0,80,80);
@@ -11349,30 +11390,30 @@ chicken.prototype.draw = function(e,noAnimDraw){
     textSize(50);
     fill(0,0,0);
     scale(0.6);
-    textAlign(BASELINE);
-    text(this.hat,-30,-25);
+    textAlignCompatible(BASELINE);
+    textCompatible(this.hat,-30,-25);
     }
     popMatrix();
-
+    
     if(this.foodHighlight){
         noStroke();
         fill(247, 255, 0,100);
         ellipse(0,0,80,80);
     }
     this.foodHighlight = false;
-
+    
     stroke(0,0,0);
     strokeWeight(3);
-
+    
     if(!this.noStatsShow){
     pushMatrix();
     scale(saveDir,1);
     var fadeStuff = 255-(this.highlightAddScale-1)*(255/0.12);
     var fadeStuffA = fadeStuff/255;
-
+    
     // attack
     attack(-18,-16,0.14*1.1,fadeStuff);
-
+    
     // heart
     if(scene === 'fight' || scene === 'summary'){
     var a = this.dHealth/this.maxhealth;
@@ -11386,29 +11427,29 @@ chicken.prototype.draw = function(e,noAnimDraw){
     }else{
     heart(20,-20,0.1*1.1,fadeStuff);
     }
-
+    
     noStroke();
     fill(163, 163, 163,100*fadeStuffA);
     rect(-16,-34,30,8,7);
-
+    
     noStroke();
     fill(255, 0, 183,150*fadeStuffA);
     rect(-16,-34,30*getProgress(this.xp),8,7);
-
+    
     stroke(66, 66, 66,200*fadeStuffA);
     strokeWeight(2);
     noFill();
     rect(-16,-34,30,8,7);
-
+    
     textSize(10);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(0,0,0,fadeStuff);
-    text(this.dHealth,20,-19);
-    text(this.dAttack,-20,-19);
+    textCompatible(this.dHealth,20,-19);
+    textCompatible(this.dAttack,-20,-19);
     fill(0,0,0,fadeStuff);
     textSize(10);
     if(getLevel(this.xp)> 1){
-    text(getLevel(this.xp),0,-26);
+    textCompatible(getLevel(this.xp),0,-26);
     }
     popMatrix();
     }
@@ -11419,7 +11460,7 @@ chicken.prototype.draw = function(e,noAnimDraw){
     popMatrix();
     if(scene === 'fight'){
         if(this.showTargetPath){
-
+            
             if(this.target){
                 attackPaths.push([this.x,this.y,this.target.x,this.target.y,getAngle(this,this.target)]);
             }
@@ -11437,7 +11478,7 @@ chicken.prototype.checkStatUp = function(){
     if(!this.pXp && this.pXp !== 0){
     this.pXp = this.xp;
     }
-
+    
     if((this.health <= 0 ||this.dHealth <= 0 )&& scene === 'game'){
     this.health = 1;
     this.dHealth = 1;
@@ -11457,11 +11498,11 @@ chicken.prototype.checkStatUp = function(){
     }
     this.dAttack = 99;
     }
-
+    
     if(!this.maxhealth || this.health > this.maxhealth){
     this.maxhealth = this.health;
     }
-
+    
     if(round(getLevel(this.pXp)) < round(getLevel(this.xp))){
     lastLeveled = this;
     if(scene === 'game'){
@@ -11475,7 +11516,7 @@ chicken.prototype.checkStatUp = function(){
     todo.push([this,"levelUp"]);
     }
     }
-
+    
     if(round(this.health) < round(this.pHealth)){
     if(this.stats.hurt){
     if(scene === 'game'){
@@ -11485,11 +11526,11 @@ chicken.prototype.checkStatUp = function(){
     todo.push([this,"hurt"]);
     }
     }
-
+    
     this.attack = round(this.attack);
     this.health = round(this.health);
     this.pXp = this.xp;
-
+    
     this.pAttack = this.attack;
     this.pHealth = this.health;
 };
@@ -11503,7 +11544,7 @@ contraption.prototype.checkStatUp = function(){
     // this.dHealth = 1;
     // this.pHealth = 1;
     // }
-
+    
     // if(round(this.health) < round(this.pHealth)){
     // if(this.stats.hurt){
     // if(scene === 'game'){
@@ -11513,12 +11554,12 @@ contraption.prototype.checkStatUp = function(){
     // todo.push([this,"hurt"]);
     // }
     // }
-
+    
     this.health = round(this.health);
     this.pHealth = this.health;
 };
 contraption.prototype.draw = function(e){
-
+    
     this.checkStatUp();
     this.displayed = true;
     //println(this.pos);
@@ -11544,12 +11585,12 @@ contraption.prototype.draw = function(e){
     }else{
         this.nScale = lerp(this.nScale,1,0.1);
     }
-
+    
     scale(this.nScale);
-
+    
     scale(this.stats.size);
     var d = atan2(this.py-this.y,this.px-this.x);
-
+    
     if(!this.cardReveal && this.cardReveal !== 0){
     this.cardReveal = 1;
     }
@@ -11580,10 +11621,10 @@ contraption.prototype.draw = function(e){
     var stretchLimit = 30;
     this.curStretch.x = lerp(this.curStretch.x,(abs(this.x-this.px)/stretchLimit)+1,0.1);
     this.curStretch.y = lerp(this.curStretch.y,(abs(this.y-this.py)/stretchLimit)+1,0.1);
-
+    
     scale(this.curStretch.x,this.curStretch.y);
     }
-
+    
     translate(0,22);
     rotate(sin(frameCount*this.shakeIntensity+this.id)*this.shakeRad);
     this.shakeIntensity = 0;
@@ -11633,16 +11674,16 @@ contraption.prototype.draw = function(e){
             }
         }
     }
-
+    
     if(this.bad > 0){
         this.bad--;
         fill(200, 0, 0);
         textSize(20);
-        textAlign(CENTER,BASELINE);
+        textAlignCompatible(CENTER,BASELINE);
         pushMatrix();
         scale(1/this.nScale);
         scale(saveDir,1);
-        //text(this.badMessage,0,0);
+        //textCompatible(this.badMessage,0,0);
         noStroke();
         fill(255, 3, 3, 100);
         ellipse(0,0,80,80);
@@ -11650,26 +11691,26 @@ contraption.prototype.draw = function(e){
     }
     //
 popMatrix();
-
+    
      if(this.foodHighlight){
         noStroke();
         fill(0, 255, 242,100);
         ellipse(0,0,80,80);
     }
     this.foodHighlight = false;
-
+    
     stroke(0,0,0);
     strokeWeight(3);
     this.noStatsShow = false;
     popMatrix();
-
+    
     if(myContraptions.indexOf(this) >= 0){
         this.owned = true;
     }
-
+    
 };
-foodItem.prototype.draw = function(e){
-
+food.prototype.draw = function(e){
+    
     this.displayed = true;
     //println(this.pos);
     if(e){
@@ -11694,12 +11735,12 @@ foodItem.prototype.draw = function(e){
     }else{
         this.nScale = lerp(this.nScale,1,0.1);
     }
-
+    
     scale(this.nScale);
-
+    
     scale(this.stats.size);
     var d = atan2(this.py-this.y,this.px-this.x);
-
+    
     if(!this.cardReveal && this.cardReveal !== 0){
     this.cardReveal = 1;
     }
@@ -11723,7 +11764,7 @@ foodItem.prototype.draw = function(e){
     }
     scale(this.highlightAddScale);
     pushMatrix();
-
+    
     if(!delag2){
     if(!this.curStretch){
         this.curStretch = {x:1,y:1};
@@ -11731,10 +11772,10 @@ foodItem.prototype.draw = function(e){
     var stretchLimit = 30;
     this.curStretch.x = lerp(this.curStretch.x,(abs(this.x-this.px)/stretchLimit)+1,0.1);
     this.curStretch.y = lerp(this.curStretch.y,(abs(this.y-this.py)/stretchLimit)+1,0.1);
-
+    
     scale(this.curStretch.x,this.curStretch.y);
     }
-
+    
     translate(0,22);
     rotate(sin(frameCount*this.shakeIntensity+this.id)*this.shakeRad);
     this.shakeIntensity = 0;
@@ -11755,14 +11796,14 @@ foodItem.prototype.draw = function(e){
     this.temporaryRot = 0;
     }
     //
-
+    
     translate(0,-22);
     pushMatrix();
     scale(1/2);
     translate(-300,-300);
-
+    
     image(getImg(this.stats.name,'food'),0,0);
-
+    
     popMatrix();
     if(this.stats.animImg && !(delag4&&!this.stats.crucialAnim)){
         this.stats.animImg(this);
@@ -11776,15 +11817,15 @@ foodItem.prototype.draw = function(e){
         arc(0,0,this.radius*1.8,this.radius*1.8,0,this.heldTimer*6);
         }
     }
-
+    
     if(this.bad > 0){
         this.bad--;
         fill(200, 0, 0);
         textSize(20);
-        textAlign(CENTER,BASELINE);
+        textAlignCompatible(CENTER,BASELINE);
         pushMatrix();
         scale(saveDir,1);
-        text(this.badMessage,0,0);
+        textCompatible(this.badMessage,0,0);
         popMatrix();
     }
     //
@@ -11794,7 +11835,7 @@ foodItem.prototype.draw = function(e){
     strokeWeight(3);
     this.noStatsShow = false;
     popMatrix();
-
+    
 };
 coop.prototype.draw = function() {
     this.physics();
@@ -11831,7 +11872,7 @@ coop.prototype.draw = function() {
     fill(255, 153, 0);
     ellipse(-90,-90,25,25);
     fill(0,0,0);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     textSize(11);
     var i = myCoops.indexOf(this)+1;
     var count = 0;
@@ -11852,7 +11893,7 @@ coop.prototype.draw = function() {
     translate(-90,-87);
     scale(this.dir,1);
     translate(90,87);
-    text(i,-90,-87);
+    textCompatible(i,-90,-87);
     popMatrix();
     var num = 20;
 for(var i = 0; i < num; i+=3){
@@ -11864,7 +11905,7 @@ mGrass(-20+cos(i*(180/num))*110,50+sin((i+0.5)*(180/num))*20,1,'grass'+odd);
 }
     popMatrix();
     popMatrix();
-
+    
 };
 chicken.prototype.kill = function() {
 if(scene === 'game' || scene === 'fight'){
@@ -11872,7 +11913,7 @@ var kfc = new effect(this.x,this.y,'deadChicken',1,100);
 }
 killChicken(this);
 };
-foodItem.prototype.kill = function(){
+food.prototype.kill = function(){
 for(var i = foods.length-1; i > -1; i--){
     if(foods[i] === this){
         foods.splice(i,1);
@@ -11938,7 +11979,7 @@ noStroke();
     if(this.stats.ability){
         tAbility = this.stats.ability(this.lvl,this);
     }
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     var hAbility = getHeightOfText(tAbility,240);
     if(this.stats.plusCardHeight){
@@ -11952,7 +11993,7 @@ noStroke();
     stroke(0,0,0);
     rect(x,y,wid*r,(100+hAbility)*r,6);
     fill(0,0,0);
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     pushMatrix();
     translate(x,y);
@@ -11963,50 +12004,50 @@ noStroke();
     if(!t){
         t = 'Boring chicken';
     }
-    text(t+' (L'+this.lvl+')',10,2);
+    textCompatible(t+' (L'+this.lvl+')',10,2);
     var add = '';
     if(this.tempStatAttack){
     add = ' (base '+(this.attack-this.tempStatAttack)+')';
     }
-    text('Attack   : '+this.attack+add,10,24);
+    textCompatible('Attack   : '+this.attack+add,10,24);
     attack(83,23,0.1);
     fill(0,0,0);
     var add = '';
     if(this.tempStatHealth){
     add = ' (base '+(this.health-this.tempStatHealth)+')';
     }
-    text('Health   : '+this.health+add,10,46);
+    textCompatible('Health   : '+this.health+add,10,46);
     heart(81,43,0.07);
     fill(0,0,0);
     var t = this.stats.tier;
     if(!t){
         t = 0;
     }
-    text('Tier: '+t,10,68);
+    textCompatible('Tier: '+t,10,68);
 
-    text(tAbility,10,78,240,300);
-
+    textCompatible(tAbility,10,78,240,300);
+    
     noStroke();
     fill(163, 163, 163);
     rect((wid*r)/2-25,-35,100,15,7);
-
+    
     noStroke();
     fill(255, 0, 183,200);
     rect((wid*r)/2-25,-35,100*getProgress(this.xp),15,7);
-
+    
     stroke(66, 66, 66);
     strokeWeight(3);
     noFill();
     rect((wid*r)/2-25,-35,100,15,7);
-
-    textAlign(CENTER,CENTER);
+    
+    textAlignCompatible(CENTER,CENTER);
     textSize(10);
     fill(0,0,0);
-    text('XP: '+this.xp,(wid*r)/2+25,-27);
-
+    textCompatibleCenter('XP: '+this.xp,(wid*r)/2+25,-27);
+    
     dice((wid*r)/2-30-10,-27,this.stats.tier);
     dice((wid*r)/2-25+100+5+10,-27,this.stats.tier);
-
+    
     popMatrix();
 
 };
@@ -12018,7 +12059,7 @@ noStroke();
     if(this.stats.ability){
         tAbility = this.stats.ability(this.lvl,this);
     }
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     var hAbility = getHeightOfText(tAbility,240);
     if(this.stats.plusCardHeight){
@@ -12032,7 +12073,7 @@ noStroke();
     stroke(0,0,0);
     rect(x,y,wid*r,(100+hAbility)*r,6);
     fill(0,0,0);
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     pushMatrix();
     translate(x,y);
@@ -12043,26 +12084,26 @@ noStroke();
     if(!t){
         t = 'Boring chicken';
     }
-    text(t+' (L'+this.lvl+')',10,2);
-    text('Size: '+(this.radius*this.size),10,24);
+    textCompatible(t+' (L'+this.lvl+')',10,2);
+    textCompatible('Size: '+(this.radius*this.size),10,24);
     fill(0,0,0);
-    text('Durability (-1 p/t)   : '+this.health,10,46);
+    textCompatible('Durability (-1 p/t)   : '+this.health,10,46);
     heart(198,43,0.07);
     fill(0,0,0);
     var t = this.stats.tier;
     if(!t){
         t = 0;
     }
-    text('Tier: '+t,10,68);
+    textCompatible('Tier: '+t,10,68);
 
-    text(tAbility,10,78,240,300);
-
+    textCompatible(tAbility,10,78,240,300);
+    
     dice((wid*r)/2+25,-27,this.stats.tier);
-
+    
     popMatrix();
 
 };
-foodItem.prototype.cardStuff = function(x,y,n){
+food.prototype.cardStuff = function(x,y,n){
     var r = n*(1/0.12);
     fill(200,200,200,(n)*2100);
 noStroke();
@@ -12070,7 +12111,7 @@ noStroke();
     if(this.stats.ability){
         tAbility = this.stats.ability(1,this);
     }
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     var hAbility = getHeightOfText(tAbility,240);
     if(this.stats.plusCardHeight){
@@ -12084,7 +12125,7 @@ noStroke();
     stroke(0,0,0);
     rect(x,y,wid*r,(100+hAbility)*r,6);
     fill(0,0,0);
-    textAlign(LEFT,BASELINE);
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     pushMatrix();
     translate(x,y);
@@ -12095,20 +12136,20 @@ noStroke();
     if(!t){
         t = 'Boring chicken';
     }
-    text(t,10,2);
+    textCompatible(t,10,2);
     fill(0,0,0);
     var t = this.stats.tier;
     if(!t){
         t = 0;
     }
-    text('Tier: '+t,10,24);
+    textCompatible('Tier: '+t,10,24);
+    
+    textCompatible('Use on: '+this.stats.targetString,10,46);
 
-    text('Use on: '+this.stats.targetString,10,46);
-
-    text(tAbility,10,60,240,300);
-
+    textCompatible(tAbility,10,60,240,300);
+    
     dice((wid*r)/2+25,-27,this.stats.tier);
-
+    
     popMatrix();
 
 };
@@ -12119,8 +12160,8 @@ var card = function(e,noMove,subj){
     if(subj.stats.ability){
         tAbility = subj.stats.ability(1,subj);
     }
-
-    textAlign(LEFT,BASELINE);
+    
+    textAlignCompatible(LEFT,BASELINE);
     textSize(15);
     var hAbility = getHeightOfText(tAbility,240);
     if(subj.stats.plusCardHeight){
@@ -12128,12 +12169,12 @@ var card = function(e,noMove,subj){
     }
     var n = e-1;
     var d = 30;
-
+    
     var wid = 200;
     if(subj.stats.plusCardWidth){
         wid += subj.stats.plusCardWidth;
     }
-
+    
     if(subj.y > 145+hAbility || noMove){
     // -150
     d = -135-hAbility;
@@ -12145,10 +12186,10 @@ var card = function(e,noMove,subj){
     if(subj.x > 490-(wid-200) && !noMove){
         l = 600-subj.x-210-(wid-200);
     }
-
+    
     var r = n*(1/0.12);
     subj.cardStuff(subj.x+l*r,subj.y+d*r,n);
-
+    
 };
 chicken.prototype.behavior = function(){
 physics(this);
@@ -12236,7 +12277,7 @@ this.highlighted = false;
 }
 this.canHold = true;
 };
-foodItem.prototype.behavior = function(){
+food.prototype.behavior = function(){
 physics(this);
 if(dist(msX,msY,this.x,this.y)<=(25*this.stats.size)*this.nScale){
 
@@ -12408,8 +12449,8 @@ coop.prototype.manage = function(){
                 }
             }
         }
-
-
+        
+        
         // nest(slot.x,slot.y);
         if(this.c[i]){
         if(already.indexOf(this.c[i]) >= 0){
@@ -12431,7 +12472,7 @@ coop.prototype.manage = function(){
         }else{
         //nest(slot.x,slot.y);
         // textSize(15);
-        // text(this.c[i],slot.x-20,slot.y);
+        // textCompatible(this.c[i],slot.x-20,slot.y);
         }
         if(!this.c[i] || m.hold === this.c[i]){
         if(m.hold){
@@ -12448,7 +12489,7 @@ coop.prototype.manage = function(){
         }
         }
         nest(slot.x,slot.y);
-
+        
     }
 };
 function pushFrom(subj,targ,r,v){
@@ -12545,7 +12586,7 @@ chicken.prototype.findTarget = function(i){
     }
     //return 3
     };
-
+    
     //var all = eachChickenInTeam(i);
     while(foundTarget === false){
         it++;
@@ -12678,12 +12719,12 @@ return ret;
 }
 function getEnemyTeam(){
     var options = [];
-
+    
     var eString = '';
     var mostSimilar = [0,10000];
-
+    
     var tries = 0;
-    while(options.length < 10 && tries < 60){
+    while(options.length < 14 && tries < 100){
     tries++;
     var i = floor(random(0,codes.length));
     if(codes[i]){
@@ -12693,11 +12734,11 @@ function getEnemyTeam(){
     }
     }
     //println(options);
-
+    
     if(options.length > 0){
     for(var i2 = 0; i2 < options.length; i2++){
     var tCode = codes[options[i2]][record[2]-1];
-
+    
     // get record
     var pdata = '';
     for(var i = 0; i < tCode.length; i++){
@@ -12733,7 +12774,7 @@ function getEnemyTeam(){
     if(a3[1] > 4){
     a3[1] = 4;
     }
-
+    
     // evaluate record difference
     var diff = 0;
     diff += abs(a3[0]-record[0]);
@@ -12742,7 +12783,7 @@ function getEnemyTeam(){
     mostSimilar[1] = diff;
     mostSimilar[0] = i2;
     }
-
+    
     }
     eString = codes[options[mostSimilar[0]]][record[2]-1];
     //eString = codes[options[floor(random(0,options.length))]][record[2]-1];
@@ -12752,14 +12793,14 @@ function getEnemyTeam(){
     }
     var ret = [];
     var unpackStage = 0;
-
+    
     // metadata
     var metaData = '';
     var ns = [];
     var cs = [];
     var curBlock = '';
     var curTo = false;
-
+    
     // unpack
     for(var i = 0; i < eString.length; i++){
         var a = eString[i];
@@ -12796,7 +12837,7 @@ function getEnemyTeam(){
     }else if(curTo === 'contraption'){
         cs.push(curBlock);
     }
-
+    
     // coops
     for(var q = 0; q < ns.length; q++){
         var add = {
@@ -12804,7 +12845,7 @@ function getEnemyTeam(){
         data:[],
         pos:{x:300,y:300},
         };
-
+        
         var blocks = [];
         var curAdd = '';
         // separate x, y, and data
@@ -12819,11 +12860,11 @@ function getEnemyTeam(){
         }
         blocks.push(curAdd);
         curAdd = '';
-
+        
         // add x and y
         add.pos.x = 600-parseInt(blocks[0],10);
         add.pos.y = parseInt(blocks[1],10);
-
+        
         var cBlocks = [];
         var curAdd = '';
         // blocks[2] is chickens
@@ -12847,7 +12888,7 @@ function getEnemyTeam(){
         }else{
             cBlocks.push(curAdd);
         }
-
+        
         //cBlocks is the coop contents data
         for(var i = 0; i < cBlocks.length; i++){
             if(cBlocks[i] === false){
@@ -12871,11 +12912,11 @@ function getEnemyTeam(){
                 add.data.push(a);
             }
         }
-
-
+        
+        
         ret.push(add);
     }
-
+    
     // contraptions
     for(var q = 0; q < cs.length; q++){
         var add = {
@@ -12884,7 +12925,7 @@ function getEnemyTeam(){
             pData:{},
             pos:{x:300,y:300},
         };
-
+        
         var blocks = [];
         var curAdd = '';
         // separate data by ,
@@ -12900,18 +12941,18 @@ function getEnemyTeam(){
         // add x and y
         add.pos.x = 600-parseInt(blocks[4],10);
         add.pos.y = parseInt(blocks[5],10);
-
+        
         var a = new contraption(300,300,stats.contraption[blocks[0]]);
         a.xp = blocks[1];
         a.health = blocks[2];
         a.attack = blocks[3];
-
+        
         add.data = a.stats;
         add.pData = a;
-
+        
         ret.push(add);
     }
-
+    
     var a = '';
     var a2 = 0;
     var add = '';
@@ -12947,7 +12988,7 @@ function getEnemyTeam(){
     //println(tNames[1]+' , '+tRecord);
 
     return ret;
-
+    
 // var d = [false,false,false,false,false,false];
 // for(var i = 0; i < 6; i++){
 // var a = false;
@@ -13026,7 +13067,7 @@ if(tc.stats.chickenSummoned){
             f(theCoop.c[q2]);
             }
         }
-
+        
     }
 }
 if(scene === 'fight'){
@@ -13093,7 +13134,7 @@ var ret = '';
 ret += tNames[0]+','+record[0]+','+record[1]+','+record[2]+'#';
 
 for(var i = 0; i < e.length; i++){
-
+   
     if(e[i].type === 'contraption'){
         ret += '|c';
         ret += e[i].data.name+',';
@@ -13119,7 +13160,7 @@ for(var i = 0; i < e.length; i++){
             }
         }
     }
-
+        
 }
 
 return ret;
@@ -13208,7 +13249,7 @@ for(var i = 0; i < chickens.length; i++){
     updateStats(chickens[i]);
 }
 for(var i = contraptions.length-1; i > -1; i--){
-
+    
     contraptions[i].triggers = 0;
     contraptions[i].promptCard = false;
     if(myContraptions.indexOf(contraptions[i]) >= 0){
@@ -13473,7 +13514,7 @@ for(var i = 0; i < 2; i++){
               teams[i][q].data[e].teamId = i;
             }
             teams[i][q].id = co;
-
+            
         }
         if(teams[i][q].type === 'contraption'){
             var co = new contraption(teams[i][q].pos.x+(600*(i)),teams[i][q].pos.y+(300+75),teams[i][q].data);
@@ -13551,7 +13592,7 @@ function newGame(){
     coops = [];
     todo = [];
     effects = [];
-
+    
     saveCode = [];
     infiniteRun = false;
     var co = new coop(300,300,[]);
@@ -13647,7 +13688,7 @@ ellipse(300,300-i*(a3*20),a,a);
             popMatrix();
         }
         }
-
+        
         for(var i = 0; i < 2; i++){
         var a = tierStats[tSet[i+3][0]][tSet[i+3][1]];
         if(a.img){
@@ -13671,7 +13712,7 @@ ellipse(300,300-i*(a3*20),a,a);
             popMatrix();
         }
         }
-
+        
         for(var i = 0; i < 2; i++){
         var a = tierStats[tSet[i+5][0]][tSet[i+5][1]];
         if(a.img){
@@ -13770,18 +13811,18 @@ function button(x,y,onClick){
 button.prototype.draw = function() {
     pushMatrix();
     translate(this.x,this.y);
-
+    
     var popFunc = function(a){
     return sin(a*(180/PI))/a;
     };
-
+    
     if(this.hitbox(this.x,this.y)){
     this.overFor++;
     this.offFor = 0;
     cursor(HAND);
-
-
-
+    
+    
+    
     if(this.overFor < 20*this.popSpeed){
     this.pop = lerp(this.pop,lerp(this.toPop,1,popFunc(this.overFor/this.popSpeed)),0.6);
     }else{
@@ -13798,8 +13839,8 @@ button.prototype.draw = function() {
     }
     this.overFor = 0;
     }
-
-
+    
+    
     scale(this.pop);
     this.graphic();
     if(this.hitbox(this.x,this.y)){
@@ -13834,7 +13875,7 @@ playButton.hitbox = function(x,y){
     }
 };
 playButton.graphic = function(){
-
+    
     pushMatrix();
     rotate(cos(frameCount*1.5)*5);
     scale(2);
@@ -13852,7 +13893,7 @@ playButton.graphic = function(){
     ellipse(0,0,50,50);
     ellipse(22,15,10,15);
     triangle(15,-6,15,14,35,9);
-
+    
     fill(255, 255, 255);
     noStroke();
     beginShape();
@@ -13938,11 +13979,11 @@ settingsButton.hitbox = function(x,y){
     }
 };
 settingsButton.graphic = function(){
-
+    
     pushMatrix();
     rotate(cos(frameCount*1.5)*5);
     scale(1.4);
-
+    
     stroke(0,0,0);
     strokeWeight(12);
     fill(0,0,0);
@@ -13955,7 +13996,7 @@ settingsButton.graphic = function(){
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     noStroke();
     fill(173, 173, 173);
     ellipse(0,0,45,45);
@@ -13967,17 +14008,17 @@ settingsButton.graphic = function(){
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     stroke(0,0,0);
     strokeWeight(6);
     fill(28, 232, 89);
     ellipse(0,0,15,15);
-
-
+    
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 var dictButton = new button(470,480,function(){
     homeTrans = 0;
@@ -13996,9 +14037,9 @@ dictButton.hitbox = function(x,y){
     }
 };
 dictButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*5);
     scale(3.5);
     pushMatrix();
@@ -14017,7 +14058,7 @@ rect(-4,3,20,26,5);
 strokeWeight(3);
 stroke(235, 166, 5);
     popMatrix();
-
+    
     scale(0.14);
     translate(-8,16);
     strokeWeight(15);
@@ -14034,7 +14075,7 @@ stroke(235, 166, 5);
     ellipse(0,0,50,50);
     ellipse(22,15,10,15);
     triangle(15,-6,15,14,35,9);
-
+    
     fill(125, 88, 27);
     noStroke();
     beginShape();
@@ -14048,11 +14089,11 @@ stroke(235, 166, 5);
     ellipse(0,0,50,50);
     ellipse(22,15,10,15);
     triangle(15,-6,15,14,35,9);
-
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 var settingsButtonGame;
 var backButton = new button(300,560,function(){
@@ -14075,9 +14116,9 @@ backButton.hitbox = function(x,y){
     }
 };
 backButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(5);
@@ -14085,12 +14126,12 @@ backButton.graphic = function(){
     rect(-80,-20,160,40,10);
     fill(0,0,0);
     textSize(20);
-    textAlign(CENTER,CENTER);
-    text('Back',0,0);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('Back',0,0);
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var contTo = 'home';
@@ -14109,9 +14150,9 @@ contButton.hitbox = function(x,y){
     }
 };
 contButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(5);
@@ -14119,12 +14160,12 @@ contButton.graphic = function(){
     rect(-70,-20,140,40,10);
     fill(0,0,0);
     textSize(20);
-    textAlign(CENTER,CENTER);
-    text('Continue',0,0);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('Continue',0,0);
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var keyboardChars = 'qwertyuiopasdfghjklzxcvbnm';
@@ -14149,7 +14190,7 @@ playButton2.hitbox = function(x,y){
     }
 };
 playButton2.graphic = function(){
-
+    
     pushMatrix();
     rotate(cos(frameCount*1.5)*5);
     scale(2);
@@ -14167,7 +14208,7 @@ playButton2.graphic = function(){
     ellipse(0,0,50,50);
     ellipse(22,15,10,15);
     triangle(15,-6,15,14,35,9);
-
+    
     fill(255, 255, 255);
     noStroke();
     beginShape();
@@ -14207,28 +14248,28 @@ delagButton.hitbox = function(x,y){
     }
 };
 delagButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(217, 217, 217);
     rect(-80,-50,160,100,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(20);
-    text('Remove Grass',0,-26);
+    textCompatibleCenter('Remove Grass',0,-26);
     textSize(16);
-
+    
     if(!trueDelag){
-
+    
     if(delag){
     fill(0, 224, 26);
-    text('ON',-20,0);
+    textCompatibleCenter('ON',-20,0);
     }else{
     fill(255, 0, 0);
-    text('OFF',-20,0);
+    textCompatibleCenter('OFF',-20,0);
     }
     strokeWeight(4);
     stroke(0,0,0);
@@ -14237,17 +14278,17 @@ delagButton.graphic = function(){
     }else{
     fill(168, 67, 0);
     textSize(10);
-    text('GRASS NOT LOADED (ON)',0,0);
+    textCompatibleCenter('GRASS NOT LOADED (ON)',0,0);
     strokeWeight(4);
     stroke(0,0,0);
     fill(33, 255, 255,70);
     rect(-70,-12,140,25,3);
     }
-
+    
     fill(135, 0, 135);
     textSize(10);
-    text('De-lag\nLevel:',-30,30);
-
+    textCompatibleCenter('De-lag\nLevel:',-30,30);
+    
     pushMatrix();
     translate(30,38);
     stroke(0,0,0);
@@ -14272,13 +14313,13 @@ delagButton.graphic = function(){
     //-170, -118, -62, -10
     var a2 = -10;
     line(0,0,cos(a2)*(a-5),sin(a2)*(a-5));
-
+    
     popMatrix();
-
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var delag2Button = new button(480,260,function(){
@@ -14294,25 +14335,25 @@ delag2Button.hitbox = function(x,y){
     }
 };
 delag2Button.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(217, 217, 217);
     rect(-80,-50,160,100,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(20);
-    text('Remove Lerp',0,-26);
+    textCompatibleCenter('Remove Lerp',0,-26);
     textSize(16);
     if(delag2){
     fill(0, 224, 26);
-    text('ON',-20,0);
+    textCompatibleCenter('ON',-20,0);
     }else{
     fill(255, 0, 0);
-    text('OFF',-20,0);
+    textCompatibleCenter('OFF',-20,0);
     }
     strokeWeight(4);
     stroke(0,0,0);
@@ -14320,8 +14361,8 @@ delag2Button.graphic = function(){
     rect(-45,-12,50,25,3);
     fill(135, 0, 135);
     textSize(10);
-    text('De-lag\nLevel:',-30,30);
-
+    textCompatibleCenter('De-lag\nLevel:',-30,30);
+    
     pushMatrix();
     translate(30,38);
     stroke(0,0,0);
@@ -14346,13 +14387,13 @@ delag2Button.graphic = function(){
     //-170, -118, -62, -10
     var a2 = -118;
     line(0,0,cos(a2)*(a-5),sin(a2)*(a-5));
-
+    
     popMatrix();
-
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var delag3Button = new button(120,270,function(){
@@ -14368,25 +14409,25 @@ delag3Button.hitbox = function(x,y){
     }
 };
 delag3Button.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(217, 217, 217);
     rect(-80,-70,160,120,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(16);
-    text('Remove Arc\nCalculations',0,-36);
+    textCompatibleCenter('Remove Arc\nCalculations',0,-36);
     textSize(16);
     if(delag3){
     fill(0, 224, 26);
-    text('ON',-20,0);
+    textCompatibleCenter('ON',-20,0);
     }else{
     fill(255, 0, 0);
-    text('OFF',-20,0);
+    textCompatibleCenter('OFF',-20,0);
     }
     strokeWeight(4);
     stroke(0,0,0);
@@ -14394,8 +14435,8 @@ delag3Button.graphic = function(){
     rect(-45,-12,50,25,3);
     fill(135, 0, 135);
     textSize(10);
-    text('De-lag\nLevel:',-30,30);
-
+    textCompatibleCenter('De-lag\nLevel:',-30,30);
+    
     pushMatrix();
     translate(30,38);
     stroke(0,0,0);
@@ -14420,13 +14461,13 @@ delag3Button.graphic = function(){
     //-170, -118, -62, -10
     var a2 = -170;
     line(0,0,cos(a2)*(a-5),sin(a2)*(a-5));
-
+    
     popMatrix();
-
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 
@@ -14443,25 +14484,25 @@ delag4Button.hitbox = function(x,y){
     }
 };
 delag4Button.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(217, 217, 217);
     rect(-80,-88,160,138,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(14);
-    text('Remove Animated\nGraphics\n(Not Recommended)',0,-45);
+    textCompatibleCenter('Remove Animated\nGraphics\n(Not Recommended)',0,-45);
     textSize(16);
     if(delag4){
     fill(0, 224, 26);
-    text('ON',-20,0);
+    textCompatibleCenter('ON',-20,0);
     }else{
     fill(255, 0, 0);
-    text('OFF',-20,0);
+    textCompatibleCenter('OFF',-20,0);
     }
     strokeWeight(4);
     stroke(0,0,0);
@@ -14469,8 +14510,8 @@ delag4Button.graphic = function(){
     rect(-45,-12,50,25,3);
     fill(135, 0, 135);
     textSize(10);
-    text('De-lag\nLevel:',-30,30);
-
+    textCompatibleCenter('De-lag\nLevel:',-30,30);
+    
     pushMatrix();
     translate(30,38);
     stroke(0,0,0);
@@ -14495,13 +14536,13 @@ delag4Button.graphic = function(){
     //-170, -118, -62, -10
     var a2 = -62;
     line(0,0,cos(a2)*(a-5),sin(a2)*(a-5));
-
+    
     popMatrix();
-
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var settingsButtonGame = new button(100,60,function(){
@@ -14522,11 +14563,11 @@ settingsButtonGame.hitbox = function(x,y){
     }
 };
 settingsButtonGame.graphic = function(){
-
+    
     pushMatrix();
     rotate(cos(frameCount*1.5)*5);
     scale(0.5);
-
+    
     stroke(0,0,0);
     strokeWeight(12);
     fill(0,0,0);
@@ -14539,7 +14580,7 @@ settingsButtonGame.graphic = function(){
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     noStroke();
     fill(173, 173, 173);
     ellipse(0,0,45,45);
@@ -14551,17 +14592,17 @@ settingsButtonGame.graphic = function(){
     rect(-7,-10,14,15);
     popMatrix();
     }
-
+    
     stroke(0,0,0);
     strokeWeight(6);
     fill(10, 173, 56);
     ellipse(0,0,15,15);
-
-
+    
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var abandonButton = new button(510,70,function(){
@@ -14577,23 +14618,23 @@ abandonButton.hitbox = function(x,y){
     }
 };
 abandonButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(255, 56, 56);
     rect(-60,-40,120,80,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(20);
-    text('ABANDON\nRUN!',0,0);
-
+    textCompatibleCenter('ABANDON\nRUN!',0,0);
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 var cancelTutorialButton = new button(90,530,function(){
     scene = 'confirmCancelTutorial';
@@ -14608,35 +14649,35 @@ cancelTutorialButton.hitbox = function(x,y){
     }
 };
 cancelTutorialButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(8);
     fill(255, 56, 56);
     rect(-60,-40,120,80,10);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(0,0,0);
     textSize(20);
-    text('Cancel\nTutorial',0,0);
-
+    textCompatibleCenter('Cancel\nTutorial',0,0);
+    
     popMatrix();
-
-
-
+    
+    
+    
 };
 
 var codeButton = new button(300,545,function(){
-    var giveCode = '\n[';
+    var giveCode = '```\n[';
 for(var i = 0; i < saveCode.length; i++){
     giveCode += '"'+saveCode[i]+'",';
 }
-giveCode += '],\n';
+giveCode += '],\n```';
 println(giveCode);
 
-    println('Here is your save code!');
-    println('(This project was originally hosted on Khan Academy, where the code could be shared. It may not be so easy to share the code from this platform.)');
+    println('Please copy and paste the above text into the Tips & Thanks section of this program');
+    println('(including the tick marks ```)');
 });
 codeButton.toPop = 1.2;
 codeButton.popSpeed = 2;
@@ -14648,9 +14689,9 @@ codeButton.hitbox = function(x,y){
     }
 };
 codeButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(5);
@@ -14658,12 +14699,12 @@ codeButton.graphic = function(){
     rect(-80,-35,160,70,10);
     fill(0,0,0);
     textSize(20);
-    textAlign(CENTER,CENTER);
-    text('Yes!',0,0);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('Yes!',0,0);
     popMatrix();
-
-
-
+    
+    
+    
 };
 var infiniteButton = new button(120,560,function(){
     infiniteRun = true;
@@ -14680,9 +14721,9 @@ infiniteButton.hitbox = function(x,y){
     }
 };
 infiniteButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(5);
@@ -14690,12 +14731,12 @@ infiniteButton.graphic = function(){
     rect(-90,-20,180,40,10);
     fill(0,0,0);
     textSize(20);
-    textAlign(CENTER,CENTER);
-    text('Endless Mode',0,0);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('Endless Mode',0,0);
     popMatrix();
-
-
-
+    
+    
+    
 };
 var tutorialToggleButton = new button(440,350,function(){
     tutorial.anim = 360;
@@ -14716,10 +14757,10 @@ tutorialToggleButton.hitbox = function(x,y){
     }
 };
 tutorialToggleButton.graphic = function(){
-
+    
     pushMatrix();
     rotate(cos(frameCount*1.5)*3);
-
+    
     stroke(20, 40, 255);
     strokeWeight(10);
     fill(237, 225, 0);
@@ -14738,9 +14779,9 @@ tutorialToggleButton.graphic = function(){
     stroke(20, 40, 255);
     noFill();
     rect(-40,-20,80,40,20);
-
+    
     popMatrix();
-
+    
 };
 
 var tutorial;
@@ -14758,9 +14799,9 @@ tNextButton.hitbox = function(x,y){
     }
 };
 tNextButton.graphic = function(){
-
+    
     pushMatrix();
-
+    
     rotate(cos(frameCount*1.5)*3);
     stroke(0,0,0);
     strokeWeight(5);
@@ -14768,12 +14809,12 @@ tNextButton.graphic = function(){
     rect(-80,-20,160,40,10);
     fill(0,0,0);
     textSize(20);
-    textAlign(CENTER,CENTER);
-    text('Next',0,0);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('Next',0,0);
     popMatrix();
-
-
-
+    
+    
+    
 };
 tNextButton.altClick = function(){
 if(tutorial.clicked){
@@ -14796,7 +14837,7 @@ pushMatrix();
         rotate(-10+cos(frameCount*1.5)*2);
     translate(0,-25);
     //{
-
+    
 bases.chicken();
 pushMatrix();
 scale(1.5);
@@ -14857,7 +14898,7 @@ line(-9,0,9,0);
 fill(209, 209, 209);
 ellipse(0,0,6,6);
 popMatrix();
-
+    
     //}
     popMatrix();
 }
@@ -14879,7 +14920,7 @@ scenes:[
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -14889,12 +14930,12 @@ scenes:[
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Welcome to Super\nChicken Game!\n\nAs trainer chicken, it\nis my job to teach you\nhow to play the game.\n\nIf you already know how,\nyou can turn the tutorial\noff in the settings.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
+    
     tNextButton.draw();
     },
     function(){
@@ -14915,24 +14956,24 @@ scenes:[
     fill(224, 224, 224);
     rect(50,30,250,340,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Super Chicken Game\nis a rougelite and turn\nbased auto-battler\nvery roughly based off\nof Super Auto Pets\nby teamwood games.\nIn this game you will\nassemble a team of\nchickens and contraptions\nin order to win fights\nagainst teams made by\nother players.\nWin ten battles to win\na run!';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
     pushMatrix();
     translate(450,160);
     var a = tutorial.timer;
     if(a > 180){
     a = 180;
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     fill(255, 196, 0);
     var a2 = 50*(1/((tutorial.timer-180)*0.2));
     if(a2 > 50){
     a2 = 50;
     }
     textSize(50-a2);
-    text('10',0,0);
+    textCompatibleCenter('10',0,0);
     }
     for(var i = 0; i < a*2-35; i+=360/10){
     pushMatrix();
@@ -14941,7 +14982,7 @@ scenes:[
     popMatrix();
     }
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){
@@ -15029,12 +15070,12 @@ scenes:[
     fill(224, 224, 224);
     rect(50,30,250,340,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(14);
     var a = 'A team consists of 1-3\nchicken coops, each\nfilled with up to 6\nchickens, and any number\nof contraptions\nChickens and contraptions\ncan be purchased from the\nshop for gold (usually 3).\nYou get 14 gold to spend\neach turn.\nFood can also be bought,\nwhich is used to make\nchickens stronger.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
+    
     if(tutorial.timer > 170){
     stroke(0,0,0);
     strokeWeight(14);
@@ -15069,7 +15110,7 @@ scenes:[
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15079,12 +15120,12 @@ scenes:[
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Let\'s begin by\nbuying a chicken.\n\nDrag a chicken from the\nshop to an empty coop\nspot to buy it.\nIf the shop has no\nchickens you want, you\ncan reroll it for 1 gold\nby pressing "Roll"';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
+    
     tNextButton.draw();
     },
     function(){},
@@ -15096,7 +15137,7 @@ scenes:[
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15106,12 +15147,12 @@ scenes:[
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Nice!\n'+tutorial.boughtchickenname+'\nwas a very wise purchase.\n\nA chicken has four\nimportant stats:\nType,\nAttack,\nHealth,\nand XP (experience)';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
+    
     tNextButton.draw();},
     function(){
     tutorial.timer++;
@@ -15122,7 +15163,7 @@ scenes:[
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15132,11 +15173,11 @@ scenes:[
     fill(224, 224, 224);
     rect(50,40,250,330,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(14);
     var a = 'Each chicken type will\nhave a unique ability.\nYou can see a chicken\'s\nability by hovering over\nit with your mouse.\nIf you drag a chicken of\nthe same type onto another,\nthey will combine into a\nchicken with +1 XP.\nGet enough XP and a chicken\nwill level up (up to lvl 3).\nHigher level chickens will\nhave better abilities.\nMerging also gives +1/+1.\n(+1 attack and +1 health)';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,55);
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,55);
     pushMatrix();
     translate(445,180);
     scale(1-1/(tutorial.timer/10+1));
@@ -15158,10 +15199,10 @@ scenes:[
     noFill();
     rect(-16,-34,30,8,7);
     textSize(10);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(0,0,0);
-    text('3',20,-19);
-    text('2',-20,-19);
+    textCompatible('3',20,-19);
+    textCompatible('2',-20,-19);
     }
     popMatrix();
     pushMatrix();
@@ -15181,10 +15222,10 @@ scenes:[
     noFill();
     rect(-16,-34,30,8,7);
     textSize(10);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(0,0,0);
-    text('2',20,-19);
-    text('1',-20,-19);
+    textCompatible('2',20,-19);
+    textCompatible('1',-20,-19);
     }
     popMatrix();
     pushMatrix();
@@ -15204,20 +15245,20 @@ scenes:[
     noFill();
     rect(-16,-34,30,8,7);
     textSize(10);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(0,0,0);
-    text('4',20,-19);
-    text('3',-20,-19);
+    textCompatible('4',20,-19);
+    textCompatible('3',-20,-19);
     }
     popMatrix();
     fill(255, 0, 221);
     textSize(78);
-    textAlign(CENTER,CENTER);
-    text('+',445,130);
-    text('=',390,230);
+    textAlignCompatible(CENTER,CENTER);
+    textCompatibleCenter('+',445,130);
+    textCompatibleCenter('=',390,230);
     popMatrix();
-
-
+    
+    
     tNextButton.draw();
     },
     function(){ tutorial.timer++;
@@ -15228,7 +15269,7 @@ scenes:[
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15238,11 +15279,11 @@ scenes:[
     fill(224, 224, 224);
     rect(50,40,250,330,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Merging a chicken also\ngives you power.\n\nThis is shown by the power\nmeter in the top right.\n\nFill the power meter and\nyou will be rewarded\nwith another coop!\nYou can have up to 3.\n\nGetting another coop is\nvery good, as you can\nhouse 6 more chickens.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,60);
     pushMatrix();
     translate(380,160);
     scale(2.2);
@@ -15266,10 +15307,10 @@ stroke(0,0,0);
 rect(-10,-10,80,23,5);
 fill(0,0,0);
 textSize(8);
-textAlign(CENTER,BASELINE);
-text('Merge Power:\n'+5+'/'+15,30,-1);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible('Merge Power:\n'+5+'/'+15,30,-1);
     popMatrix();
-
+    
     tNextButton.draw();},
     function(){
     tutorial.timer++;
@@ -15280,7 +15321,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15290,11 +15331,11 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,40,250,330,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(13);
     var a = 'The main stats of a chicken\nare attack and health\n(shown by egg and heart).\nThey can range from 1-99.\n\nWhen you end your turn, your\nteam will fight another.\nChickens will throw eggs\nand deal their attack damage\nto another chicken\'s health.\n\nWhen a chicken has no health,\nit faints. Don\'t worry,\nEVERYTHING\nthat happens in a battle is\ntemporary (except for\nwin/loss)';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,56);
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,56);
     pushMatrix();
     pushMatrix();
     translate(430,180);
@@ -15316,14 +15357,14 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     noFill();
     rect(-16,-34,30,8,7);
     textSize(10);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(0,0,0);
-    text(round(a*10),20,-19);
-    text('4',-20,-19);
+    textCompatible(round(a*10),20,-19);
+    textCompatible('4',-20,-19);
     }
     popMatrix();
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){
@@ -15335,7 +15376,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15345,12 +15386,12 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'You can improve these\nstats with abilities\nor food.\nFood is found in shop\npages 2 and 3.\n\nNavigate to shop page 2,\nthen drag an apple to a\nchicken in your coop\nto feed it.\n';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
+    
     pushMatrix();
     translate(430,120);
     scale(1.2);
@@ -15377,10 +15418,10 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     rect(-45,-15,90,30,5);
     textSize(14);
     fill(0,0,0);
-    textAlign(CENTER,BASELINE);
-    text("Page: "+(2)+"/"+3,0,5);
+    textAlignCompatible(CENTER,BASELINE);
+    textCompatible("Page: "+(2)+"/"+3,0,5);
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){},
@@ -15393,7 +15434,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15403,16 +15444,16 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Nice!\nLet\'s finish the turn.\n\nSpend ALL of your gold,\nthen press the\nFight\n button in the top right\nto go battle.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
+    
     pushMatrix();
-
+    
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){},
@@ -15425,7 +15466,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15435,7 +15476,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = '';
@@ -15449,12 +15490,12 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     a += 'Nice try,\nYou\'ll get em next time!';
     }
     a +='\n\nEvery time you win you\nget 1 trophy.\nTo win a run, you need\nto get 10 trophies.\nEvery time you lose, you\nlose 1 heart.\nLose all 5 hearts and the\nrun will be over.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,130);
+    
     pushMatrix();
-
+    
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){
@@ -15466,7 +15507,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15476,12 +15517,12 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,60,250,310,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Let\'s buy a contraption.\n\nContraptions can be found\nin shop page 2 and 3.\n\nDrag a contraption to\nanywhere above the shop\nto buy it!\n\nContraptions will lose\n1 durability per turn.\nWhen it has no durability,\nit will be destroyed.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,80);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,80);
+    
     pushMatrix();
     translate(430,120);
     scale(2);
@@ -15510,10 +15551,10 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     rect(-45,-15,90,30,5);
     textSize(14);
     fill(0,0,0);
-    textAlign(CENTER,BASELINE);
-    text("Page: "+(2)+"/"+3,0,5);
+    textAlignCompatible(CENTER,BASELINE);
+    textCompatible("Page: "+(2)+"/"+3,0,5);
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){},
@@ -15526,7 +15567,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15536,12 +15577,12 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,60,250,310,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Nice!\n\nAs you may have noticed,\nyou can drag around all\nyour stuff to arrange\nyour team as you wish.\n\nYou can also get rid of\nstuff you don\'t want for\n a profit. Drag stuff\nto the trash in the top\nleft to sell it for gold\nequal to its level.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,80);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,80);
+    
     pushMatrix();
     translate(370,40);
     scale(2);
@@ -15563,12 +15604,12 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
         line(10+i*(50/3),55,10+i*(50/3),85);
     }
     fill(0,0,0);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(12);
-    text('Trash',35,65);
+    textCompatibleCenter('Trash',35,65);
 
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){},
@@ -15581,7 +15622,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15591,14 +15632,14 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Nice!\nLet\'s finish the turn.\nMake sure to spend all\nof your gold!\nIf you have just a few\ngold left over, you can\nroll and save things for\nlater by clicking the\nfreeze button that pops\nup when you hold a shop\nitem.';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
+    
     pushMatrix();
-
+    
     translate(450,200);
     scale(1.5);
     scale(1-1/(1+tutorial.timer/10));
@@ -15609,10 +15650,10 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     rect(350,460,130,30,5);
     fill(0,0,0);
     textSize(14);
-    textAlign(CENTER,BASELINE);
-    text("Freeze Slot",415,480);
+    textAlignCompatible(CENTER,BASELINE);
+    textCompatible("Freeze Slot",415,480);
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){},
@@ -15625,7 +15666,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15635,7 +15676,7 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     fill(224, 224, 224);
     rect(50,50,250,320,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(14);
     var a = '';
@@ -15649,21 +15690,21 @@ text('Merge Power:\n'+5+'/'+15,30,-1);
     a += 'Nice try,\nYou\'ll get em next time!';
     }
     a +='\n\nOne more thing:\nChickens are divided into\n6 tiers. Higher tier chickens\nare often much better.\nYou will unlock another tier\n(chickens of that tier will\nbegin appearing in the shop)\nevery odd turn number.\nTiers are shown by dice.\nA big part of the game is\nknowing when to switch to\nhigher tier chickens!';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,63);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,63);
+    
     pushMatrix();
     translate(380,50);
     scale(2);
     scale(1-1/(1+tutorial.timer/10));
     textSize(12);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     for(var i = 0; i < 6; i++){
     dice(0,i*20,i+1);
     fill(0,0,0);
-    text('Turn '+((i*2)+1),50,i*20);
+    textCompatibleCenter('Turn '+((i*2)+1),50,i*20);
     }
     popMatrix();
-
+    
     tNextButton.draw();
     },
     function(){
@@ -15675,7 +15716,7 @@ tutorial.timer++;
     fill(89, 89, 89, 150);
     rect(-100,-100,800,800);
     trainerImg();
-
+    
     stroke(0,0,0);
     strokeWeight(14);
     fill(0, 0, 0);
@@ -15685,15 +15726,15 @@ tutorial.timer++;
     fill(224, 224, 224);
     rect(50,100,250,270,40);
     triangle(250,370,300,320,314,385);
-    textAlign(CENTER,TOP);
+    textAlignCompatible(CENTER,TOP);
     fill(0,0,0);
     textSize(15);
     var a = 'Well, that\'s it for\nthe tutorial!\n\nThere\'s still much more\nfor you to learn, but as\nfor the basics, if you\'ve\nbeen listening, that\'s\neverything!\n\nGood luck,\n'+tNames[0]+'!';
-    text(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
-
+    textCompatible(a.substring(0,(a.length/200)*(tutorial.timer)),175,120);
+    
     pushMatrix();
     popMatrix();
-
+    
     tNextButton.draw();
     },
     ],
@@ -15796,7 +15837,7 @@ buttonFunctions:[
         tutorial.timer = 0;
         tutorial.on = false;
     },
-
+    
     ],
 };
 
@@ -15815,13 +15856,13 @@ w = 40;
 }
 rect(x-(w*pop)/2,y-(36*pop)/2,w*pop,36*pop,5);
 fill(0,0,0);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(25);
 var a2 = a;
 if(keyboardCase && keyboardChars.indexOf(a) >= 0){
 a2 = a.toUpperCase();
 }
-text(a2,x,y);
+textCompatibleCenter(a2,x,y);
 if(msX >= x-(w*pop/2) && msX <= x+(w*pop/2) && msY >= y-22 && msY <= y+22){
 cursor(HAND);
 if(clicked){
@@ -16543,7 +16584,7 @@ strokeWeight(8);
 noFill();
 rect(-100,320,800,400);
 
-
+        
 
 
 for(var i = 0; i < 10; i++){
@@ -16585,9 +16626,9 @@ charButton(540,450,'del.',70);
       }
 
       fill(0,0,0);
-      textAlign(CENTER,CENTER);
+      textAlignCompatible(CENTER,CENTER);
       textSize(25);
-      text('Enter Name: '+tNames[0],300,270);
+      textCompatibleCenter('Enter Name: '+tNames[0],300,270);
 
 
 noStroke();
@@ -16634,8 +16675,8 @@ dictPops.push([]);
 
 fill(0,0,0);
 textSize(20);
-textAlign(CENTER,CENTER);
-text('Tier '+(i+1),300,i*85+30);
+textAlignCompatible(CENTER,CENTER);
+textCompatibleCenter('Tier '+(i+1),300,i*85+30);
 pushMatrix();
 translate(370,i*85+30);
 scale(1.1+cos(frameCount*3)*0.1);
@@ -16648,7 +16689,7 @@ clock(0,0,1,i*2+1);
 popMatrix();
 
 for(var q = 0; q < 14; q++){
-
+    
     if(!dictPops[i][q]){
     dictPops[i].push(0);
     }
@@ -16668,7 +16709,7 @@ if(dist(msX,msY,40+q*40,i*85+70)<= 15){
         }
     }
     dictThing = makeThing(40+q*40,i*85+70,tierStats[i][q],t);
-
+    
 }else{
 dictPops[i][q] = lerp(dictPops[i][q],0,0.1);
 }
@@ -16880,7 +16921,7 @@ tutorial.anim = lerp(tutorial.anim,0,0.05);
     translate(0,-25);
     if((tutorial.on&&a < 90)||(!tutorial.on&&a > 270)){
     //{
-
+    
 bases.chicken();
 pushMatrix();
 scale(1.5);
@@ -16941,11 +16982,11 @@ line(-9,0,9,0);
 fill(209, 209, 209);
 ellipse(0,0,6,6);
 popMatrix();
-
+    
     //}
     }else{
     //{
-
+    
 
     stroke(0,0,0);
     strokeWeight(5);
@@ -16970,18 +17011,18 @@ popMatrix();
     rotate(-9);
     stroke(0,0,0);
     strokeWeight(3);
-
-
+    
+    
     fill(0, 0, 0);
     rect(0,0,30,14,4);
     arc(15.5,4,30,15,180,360);
-
+    
     stroke(0,0,0);
     strokeWeight(2);
     fill(0, 0, 0);
     rect(18,10.5,25,4,4);
     popMatrix();
-
+    
     pushMatrix();
     translate(-27,14);
     scale(1.2);
@@ -16991,7 +17032,7 @@ popMatrix();
     fill(0, 0, 0);
     ellipse(0,0,20,20);
     popMatrix();
-
+        
     //}
     }
     popMatrix();
@@ -17416,7 +17457,7 @@ popMatrix();
 
     stroke(0,0,0);
     strokeWeight(5);
-
+    
     fill(102, 102, 102);
     ellipse(22,15,10,15);
     fill(46, 142, 166);
@@ -17445,7 +17486,7 @@ ellipse(38,3,20,20);
 popMatrix();
 
 pushMatrix();
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(2);
 fill(0, 0, 0);
 rotate(-4);
@@ -17460,7 +17501,7 @@ a2 += ackstring[i];
 }
 }
 ackstring = a2;
-text(a,11,-2);
+textCompatibleCenter(a,11,-2);
 popMatrix();
 
 fill(56, 56, 56);
@@ -17590,14 +17631,14 @@ endShape(CLOSE);
 //}
 popMatrix();
 
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 fill(255, 255, 255);
 textSize(35);
-text('Made by Ackvonhey',300,75);
+textCompatibleCenter('Made by Ackvonhey',300,75);
 textSize(20);
-text('August 2023 - 2025',300,120);
+textCompatibleCenter('August 2023 - 2025',300,120);
 textSize(20);
-text('Copyright (c) 2025 Ackvonhey (MIT License)',300,485);
+textCompatibleCenter('Literally no rights reserved',300,485);
 
 backButton.draw();
 
@@ -17655,7 +17696,7 @@ ellipse(300,300,w,w);
     strokeWeight(7);
     stroke(255, 225, 0);
     point(-8,-3);
-
+    
     var num = 4;
     for(var i = 0; i < 160; i += 160/num){
     pushMatrix();
@@ -17681,18 +17722,18 @@ ellipse(300,300,w,w);
     }
     }
     popMatrix();
-
+    
     fill(0, 0, 0);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(15);
-    text('Before you continue...',300,60);
+    textCompatibleCenter('Before you continue...',300,60);
     textSize(32);
-    text('Immortalize your chickens?',300,130);
+    textCompatibleCenter('Immortalize your chickens?',300,130);
     textSize(18);
-    text('This allows other people to encounter your run\nand contributes to the development of the game,\nso it\'s highly recommended!',300,420);
+    textCompatibleCenter('This allows other people to encounter your run\nand contributes to the development of the game,\nso it\'s highly recommended!',300,420);
     textSize(12);
-    text('(Even if it wasn\'t a good run)',300,485);
-
+    textCompatibleCenter('(Even if it wasn\'t a good run)',300,485);
+    
     contTo = 'home';
     contButton.x = 110;
     contButton.draw();
@@ -17747,20 +17788,20 @@ rect(-100,-100,800,800);
     scale(2);
     rotate(cos(frameCount*1.5)*5);
     {
-
+    
     }
     popMatrix();
-
+    
     fill(255, 255, 255);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(80);
     pushMatrix();
     translate(300,310);
     scale(sin(frameCount*4)*0.1+1);
     rotate(cos(frameCount*6)*5);
-    text('Victory!',0,0);
+    textCompatibleCenter('Victory!',0,0);
     popMatrix();
-
+    
     var max = 10;
 for(var i = 0; i < max; i++){
 var d = 55;
@@ -17773,10 +17814,10 @@ trophy(i*d+(300-(d/2)*(max-1)),450+cos(frameCount+i*90)*20,1.5,255);
         image(teamPic,-100,-100,200,200);
         popMatrix();
     }
-
+  
   contTo = 'getCode';
   contButton.draw();
-
+  
   // dev chicken
   pushMatrix();
   translate(240,560);
@@ -17784,8 +17825,8 @@ trophy(i*d+(300-(d/2)*(max-1)),450+cos(frameCount+i*90)*20,1.5,255);
   rotate(cos(frameCount*1.5)*5);
   translate(0,-25);
   {
-
-
+      
+    
 stroke(0,0,0);
     strokeWeight(2);
     noFill();
@@ -17855,7 +17896,7 @@ popMatrix();
 
     stroke(0,0,0);
     strokeWeight(5);
-
+    
     fill(227, 0, 0);
     ellipse(22,15,10,15);
     fill(46, 142, 166);
@@ -17886,7 +17927,7 @@ fill(255, 149, 0);
 stroke(0,0,0);
 strokeWeight(5);
 triangle(15,-6,15,14,35,9);
-
+    
   }
   popMatrix();
   infiniteButton.draw();
@@ -17920,7 +17961,7 @@ rect(300-w/2,300-w/2,w,w,100);
 }
 
 
-
+   
     var settingGears = [
         [300,260,-1.2,1.2],
         [120,100,1.5,1.1],
@@ -17933,7 +17974,7 @@ rect(300-w/2,300-w/2,w,w,100);
     translate(settingGears[q2][0],settingGears[q2][1]);
     scale(settingGears[q2][3]);
     for(var q = 0; q < 2; q++){
-
+    
     noStroke();
     if(q === 0){
     stroke(0,0,0);
@@ -17948,7 +17989,7 @@ rect(300-w/2,300-w/2,w,w,100);
     rect(-10,-23,20,25);
     popMatrix();
     }
-
+    
     ellipse(0,0,64,64);
     fill(120, 120, 120);
     stroke(0,0,0);
@@ -17957,13 +17998,13 @@ rect(300-w/2,300-w/2,w,w,100);
     }
     popMatrix();
     }
-
+    
     backButton.draw();
     delagButton.draw();
     delag2Button.draw();
     delag3Button.draw();
     delag4Button.draw();
-
+    
     strokeWeight(7);
     stroke(0,0,0);
     fill(122, 122, 122);
@@ -17999,7 +18040,7 @@ rect(300-w/2,300-w/2,w,w,100);
     line(-5,-5,5,5);
     line(5,-5,-5,5);
     popMatrix();
-
+    
     if(settingFromGame){
     abandonButton.draw();
     pushMatrix();
@@ -18016,7 +18057,7 @@ rect(300-w/2,300-w/2,w,w,100);
     abandonButton.draw();
     cancelTutorialButton.draw();
     }
-
+    
 }
 
 if(scene !== 'settings'){
@@ -18038,14 +18079,14 @@ case 'confirmAbandon':
 {
 background(0, 0, 0);
 fill(255, 255, 255);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(25);
-text('Are you sure that you want to\nabandon your current run?\n\n(You will lose all progress)',300,150);
+textCompatibleCenter('Are you sure that you want to\nabandon your current run?\n\n(You will lose all progress)',300,150);
 for(var i = 0; i < 10; i++){
 pushMatrix();
 translate(0,-i+7);
 fill(255,255,255,30);
-text('(You will lose all progress)',300,200);
+textCompatibleCenter('(You will lose all progress)',300,200);
 popMatrix();
 }
 
@@ -18092,19 +18133,19 @@ rect(150,300,300,130,5);
 
 fill(255, 255, 255);
 textSize(15);
-text('Abandon\nRun',300,525);
+textCompatibleCenter('Abandon\nRun',300,525);
 fill(0, 0, 0);
 textSize(60);
-text('Go Back',300,365);
+textCompatibleCenter('Go Back',300,365);
 }
 break;
 case 'confirmCancelTutorial':
 {
 background(99, 99, 99);
 fill(255, 255, 255);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(25);
-text('Are you sure that you want to\nturn off the tutorial?\n\n(If you are new, it is recommended)',300,150);
+textCompatibleCenter('Are you sure that you want to\nturn off the tutorial?\n\n(If you are new, it is recommended)',300,150);
 
 if(msX > 250 && msX < 350 && msY > 500 && msY < 550){
 fill(204, 49, 49);
@@ -18140,10 +18181,10 @@ rect(150,300,300,130,5);
 
 fill(255, 255, 255);
 textSize(15);
-text('Cancel\nTutorial',300,525);
+textCompatibleCenter('Cancel\nTutorial',300,525);
 fill(0, 0, 0);
 textSize(60);
-text('Go Back',300,365);
+textCompatibleCenter('Go Back',300,365);
 }
 break;
 case 'game':
@@ -18215,7 +18256,7 @@ if(m.hold){
             }
             doAbilityTurnSingle('eatFood',foodHighlight);
             doAbilitiesTurn('friendEatsFood');
-
+            
             ob.kill();
             m.hold = false;
             clicked = false;
@@ -18243,8 +18284,8 @@ if(msX > 10 && msX < 60 && msY > 25 && msY < 100){
     // rect(78,15,100,50,5);
     // fill(0,0,0);
     // textSize(12);
-    // textAlign(CENTER,BASELINE);
-    // text("I will send\nyou to "+strikeThrough("jesus"),128,30);
+    // textAlignCompatible(CENTER,BASELINE);
+    // textCompatibleCenter("I will send\nyou to "+strikeThrough("jesus"),128,30);
     // textSize(20);
     // pushMatrix();
     // translate(153,57);
@@ -18253,7 +18294,7 @@ if(msX > 10 && msX < 60 && msY > 25 && msY < 100){
     // fill(140, 140, 140, 200);
     // rect(140,37,36,24,5);
     // fill(255, 0, 0);
-    // text("KFC",158,57);
+    // textCompatibleCenter("KFC",158,57);
     // popMatrix();
     if(m.hold && (m.hold.IDENTIFIER === 'chicken'||m.hold.IDENTIFIER ==='contraption')){
         if(m.hold.origin){
@@ -18261,15 +18302,15 @@ if(msX > 10 && msX < 60 && msY > 25 && msY < 100){
         m.hold.dir = sin(frameCount*10)*1;
         fill(0,0,0);
     textSize(12);
-    textAlign(CENTER,BASELINE);
-    text(m.hold.begText,m.hold.x+30,m.hold.y+60);
+    textAlignCompatible(CENTER,BASELINE);
+    textCompatible(m.hold.begText,m.hold.x+30,m.hold.y+60);
         }else if(myContraptions.indexOf(m.hold)>=0){
-
+        
         }else{
         fill(0,0,0);
     textSize(12);
-    textAlign(CENTER,BASELINE);
-    text("you don't own\nthis "+m.hold.IDENTIFIER,m.hold.x+30,m.hold.y+60);
+    textAlignCompatible(CENTER,BASELINE);
+    textCompatible("you don't own\nthis "+m.hold.IDENTIFIER,m.hold.x+30,m.hold.y+60);
         }
         if(clicked){
             if(m.hold.origin||myContraptions.indexOf(m.hold)>=0){
@@ -18434,8 +18475,8 @@ fill(0, 0, 0, 100);
 rect(20-rollAnim/4,460-rollAnim/4,(100-rollCount)+rollAnim/2,30+rollAnim/2,5);
 fill(0,0,0);
 textSize(14);
-textAlign(CENTER,BASELINE);
-text("Roll ($1)",70,480);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("Roll ($1)",70,480);
 dice(20-rollAnim/4,477,tier);
 dice(120+rollAnim/4,477,tier);
 }
@@ -18459,20 +18500,20 @@ pushMatrix();
 translate(193,477);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 heart(0,0,0.12);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(5-record[1]),0,1.5);
+textCompatible(round(5-record[1]),0,1.5);
 popMatrix();
 
 pushMatrix();
 translate(236,473);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 trophy(0,0,1);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(record[0]),0,1.5);
+textCompatible(round(record[0]),0,1.5);
 popMatrix();
 
 pushMatrix();
@@ -18529,11 +18570,11 @@ stroke(0,0,0);
 rect(-10,-10,80,23,5);
 fill(0,0,0);
 textSize(8);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 if(myCoops.length < 3){
-text('Merge Power:\n'+power+'/'+neededPower,30,-1);
+textCompatible('Merge Power:\n'+power+'/'+neededPower,30,-1);
 }else{
-text('Out of order',30,4);
+textCompatible('Out of order',30,4);
 }
 popMatrix();
 }
@@ -18593,8 +18634,8 @@ popMatrix();
 
 textSize(14);
 fill(0,0,0);
-textAlign(CENTER,BASELINE);
-text("Page: "+(shopPage+1)+"/"+shop.length,535,480);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("Page: "+(shopPage+1)+"/"+shop.length,535,480);
 
 }
 
@@ -18624,11 +18665,11 @@ rect(350-freezeAnim/4,460-freezeAnim/4,130+freezeAnim/2,30+freezeAnim/2,5);
 
 fill(0,0,0);
 textSize(14);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 if(toFreeze){
-text("Freeze Slot",415,480);
+textCompatible("Freeze Slot",415,480);
 }else{
-text("Unfreeze Slot",415,480);
+textCompatible("Unfreeze Slot",415,480);
 }
 
 }
@@ -18643,12 +18684,12 @@ if(gFight.start !== true){
 rect(465,80,130,40,5);
 fill(0,0,0);
 textSize(13);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 var a = 'No';
 if(merging){
 a = 'Yes';
 }
-text('Merge Chickens:\n'+a,530,95);
+textCompatible('Merge Chickens:\n'+a,530,95);
 }
 noStroke();
 if(msX > 510 && msX < 550 && msY > 130 && msY < 150){
@@ -18700,9 +18741,9 @@ for(var i = 1; i < 3; i++){
     line(10+i*(50/3),55,10+i*(50/3),85);
 }
 fill(0,0,0);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(12);
-text('Trash',35,65);
+textCompatibleCenter('Trash',35,65);
 }
 
 // tutorial guide
@@ -18711,30 +18752,30 @@ stroke(0,0,0);
 strokeWeight(5);
 fill(97, 213, 255,160);
 rect(150,25,150,80,10);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 fill(0,0,0);
 textSize(15);
 switch(tutorial.num){
 case 4:
-text('Task:\nBuy a chicken',225,55);
+textCompatibleCenter('Task:\nBuy a chicken',225,55);
 break;
 case 10:
-text('Task:\nBuy a food',225,55);
+textCompatibleCenter('Task:\nBuy a food',225,55);
 break;
 case 12:
-text('Task:\nFinish the turn',225,55);
+textCompatibleCenter('Task:\nFinish the turn',225,55);
 break;
 case 15:
-text('Task: Buy\na contraption',225,55);
+textCompatibleCenter('Task: Buy\na contraption',225,55);
 break;
 case 17:
-text('Task:\nTrash something',225,55);
+textCompatibleCenter('Task:\nTrash something',225,55);
 break;
 case 19:
-text('Task:\nFinish the turn',225,55);
+textCompatibleCenter('Task:\nFinish the turn',225,55);
 break;
 default:
-text('Tutorial tasks\nwill be here',225,55);
+textCompatibleCenter('Tutorial tasks\nwill be here',225,55);
 break;
 }
 stroke(0,0,0);
@@ -18742,7 +18783,7 @@ strokeWeight(3);
 fill(226, 255, 5);
 ellipse(225,92,25,25);
 fill(0,0,0);
-text('?',225,92);
+textCompatibleCenter('?',225,92);
 if(dist(msX,msY,225,92)<13){
 cursor(HAND);
 if(clicked){
@@ -18773,7 +18814,7 @@ for(var i = chickens.length-1; i > -1; i--){
     chickens[i].behavior();
     }
     chickens[i].checkStatUp();
-
+    
     chickens[i].displayed = false;
     }else{
     chickens.splice(i,1);
@@ -18804,7 +18845,7 @@ for(var i = contraptions.length-1; i > -1; i--){
         if(clicked){
         if(ob.shopPos && shop[ob.shopPos[0]].data[ob.shopPos[1]]===ob){
             if(msY < 450){
-
+            
             if(canPurchase(ob)){
             purchase(ob,myContraptions,action,ob);
             clicked = false;
@@ -18814,7 +18855,7 @@ for(var i = contraptions.length-1; i > -1; i--){
             ob.temporaryScale = 0.5;
             coinAnim = {s:1.4,r:0,rs:50};
             }
-
+            
             }
         }
         }
@@ -18844,7 +18885,7 @@ if(confirmFight === true){
 if(msX > 500 && msX < 580 && msY > 20 && msY < 60 && !dim.cur){
 cursor(HAND);
     interacting = true;
-
+    
 fightAnim = lerp(fightAnim, 100, 0.05);
 if(clicked && !m.hold){
     scene = 'confirm fight';
@@ -18856,12 +18897,12 @@ fill(252, 0, 0,100+fightAnim);
 rect(500-fightAnim/12,20-fightAnim/12,80+fightAnim/6,40+fightAnim/6,6);
 textSize(20);
 fill(0,0,0);
-textAlign(CENTER,BASELINE);
-text("Fight",540,47);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("Fight",540,47);
 if(gFight.start === true){
 textSize(10);
 fill(0, 0, 0);
-text("Checking end of\nturn abilities",540+cos(frameCount*4)*6,85);
+textCompatible("Checking end of\nturn abilities",540+cos(frameCount*4)*6,85);
 }
 }
 
@@ -18932,7 +18973,7 @@ m.holdTimer = 0;
 }
 
 if(didMouseMove()){
-
+    
     mouseMoved = true;
 }else{
     mouseMoved = false;
@@ -18981,9 +19022,9 @@ teamPic = get();
 }
 
 if(introTurn){
-
+    
 }else{
-
+    
     if(introAnim < 800){
     introAnim = pow(introAnim+2,1.05);
     }
@@ -18998,24 +19039,24 @@ if(introAnim < 800){
     fill(128, 128, 128,200);
     rect(100,110,400,70,4);
     fill(255, 255, 255);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(30);
-    text('Turn '+record[2]+'!',300,140);
+    textCompatibleCenter('Turn '+record[2]+'!',300,140);
     textSize(15);
-    text('Click to continue',300,170);
+    textCompatibleCenter('Click to continue',300,170);
     if(record[2] <= 11 && record[2]/2 !== round(record[2]/2)){
     fill(128, 128, 128,200);
     rect(100,180,400,60,4);
     fill(255, 255, 255);
-    textAlign(CENTER,CENTER);
+    textAlignCompatible(CENTER,CENTER);
     textSize(25);
-    text('Tier    Unlocked',300,210);
+    textCompatibleCenter('Tier    Unlocked',300,210);
     pushMatrix();
     translate(270,210);
     scale(1.9);
     dice(0,0,tier);
     popMatrix();
-
+    
     for(var i = 0; i < tierStats[tier-1].length; i++){
         var a = tierStats[tier-1][i];
         var r = (360/tierStats[tier-1].length)*i+frameCount/4;
@@ -19023,7 +19064,7 @@ if(introAnim < 800){
             pushMatrix();
             translate(300+cos(r)*130,400+sin(r)*130);
             scale(0.8);
-
+            
             if(a.animImgBehind){
                 a.animImgBehind(a);
             }
@@ -19038,7 +19079,7 @@ if(introAnim < 800){
             popMatrix();
         }
     }
-
+    
     }
     popMatrix();
 }
@@ -19069,10 +19110,10 @@ noStroke();
 image(bgImg,0,0);
 fill(0,0,0,200);
 rect(-10,-10,width+20,height+20);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(255, 255, 255);
 textSize(25);
-text("Send this "+m.hold.IDENTIFIER+" to "+(m.hold.deathLocationText||strikeThrough("Jesus")+" KFC")+"?",300,150);
+textCompatible("Send this "+m.hold.IDENTIFIER+" to "+(m.hold.deathLocationText||strikeThrough("Jesus")+" KFC")+"?",300,150);
 m.hold.px = 300;
 m.hold.py = 300;
 m.hold.x = 300;
@@ -19141,9 +19182,9 @@ rect(350,480,150,80,10);
 
 fill(0,0,0);
 textSize(16);
-textAlign(CENTER,BASELINE);
-text("¡Sí! (yeah)\n(+"+m.hold.sellValue+" gold)",175,520);
-text("¡No!",425,520);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("¡Sí! (yeah)\n(+"+m.hold.sellValue+" gold)",175,520);
+textCompatible("¡No!",425,520);
 }
 break;
 case 'confirm fight':
@@ -19153,14 +19194,14 @@ noStroke();
 image(bgImg,0,0);
 fill(0,0,0,200);
 rect(-10,-10,width+20,height+20);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(255, 255, 255);
 textSize(25);
 if(gold > 0){
-text("End the turn with\n\n"+''+"\n\nremaining gold?\n\nGold will be reset next turn\n(You will lose this gold)",300,150);
+textCompatible("End the turn with\n\n"+''+"\n\nremaining gold?\n\nGold will be reset next turn\n(You will lose this gold)",300,150);
 coin(300,200,2.4,gold);
 }else{
-text("End the turn?",300,250);
+textCompatible("End the turn?",300,250);
 }
 
 stroke(0,0,0);
@@ -19191,9 +19232,9 @@ rect(350,480,150,80,10);
 
 fill(0,0,0);
 textSize(16);
-textAlign(CENTER,BASELINE);
-text("Yes",175,525);
-text("No",425,525);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("Yes",175,525);
+textCompatible("No",425,525);
 }
 break;
 case 'loadAssets':
@@ -19209,7 +19250,7 @@ case 'loadAssets':
     }
     for(var repeat = 0; repeat < toRepeat; repeat++){
     if(curTypeLoadNum < sTypes.length){
-
+       
         // load chickens
         // chicken images loading
         var i = chickensLoaded;
@@ -19227,9 +19268,9 @@ scale(types[sTypes[q]][i].size);
 scale(2);
 background(255,255,255);
 background(255,255,255,0);
-
+    
     // base IMG
-
+    
     if(i > -1){
     if(types[sTypes[q]][i].loadImgBehind){
     types[sTypes[q]][i].loadImgBehind();
@@ -19238,7 +19279,7 @@ background(255,255,255,0);
     if(!(i > -1 && types[sTypes[q]][i].noBase)){
     bases[sTypes[q]]();
     }
-
+    
     if(i > -1){
     types[sTypes[q]][i].loadImg();
     types[sTypes[q]][i].img = get();
@@ -19256,7 +19297,7 @@ popMatrix();
         if(chickensLoaded >= types[sTypes[curTypeLoadNum]].length){      
         chickensLoaded = -1;
         curTypeLoadNum++;
-
+        
         }
         }else{
     if(grassLoads[0].length < numGrassFrames && !delag){
@@ -19266,8 +19307,8 @@ popMatrix();
        grassLoad2(grassLoads[1].length);
     }else{
         if(!initiated){
-
-
+            
+        
         initiated = true;
         repeat = Infinity;
         }
@@ -19295,11 +19336,11 @@ popMatrix();
     fill(0, 0, 0,150);
     noStroke();
     rect(-100,85,width+200,100);
-    textAlign(CENTER,BASELINE);
+    textAlignCompatible(CENTER,BASELINE);
     fill(255, 255, 255);
     textSize(40);
-    text('LOADING ('+(progress+1)+'/'+totalLoads+')',300,150);
-
+    textCompatible('LOADING ('+(progress+1)+'/'+totalLoads+')',300,150);
+    
     noStroke();
     fill(61, 61, 61);
     rect(50,460,500,60,10);
@@ -19314,7 +19355,7 @@ popMatrix();
     }
     } catch(e){
     println('Error with loading: '+e+'\nPlease restart program');
-
+    
     }
 }
 break;
@@ -19480,7 +19521,7 @@ for(var i = 0; i < 2; i++){
     down[q].id.dir = 1-(2*i);
     down[q].id.draw();
     }else{
-
+    
     down[q].id.draw();
     }
     }
@@ -19489,15 +19530,15 @@ for(var i = 0; i < 2; i++){
 var topCard = false;
 for(var i = 0; i < 2; i++){
     if(teams[i]){
-
+        
     for(var q = 0; q < teams[i].length; q++){
-
+        
         switch(teams[i][q].id.IDENTIFIER){
         case 'coop':
         var theCoop = teams[i][q].id;
         theCoop.dir = 1-(2*i);
         //theCoop.draw();
-
+        
         for(var q2 = 0; q2 < theCoop.c.length; q2++){
             if(theCoop.c[q2]){
             physics(theCoop.c[q2]);
@@ -19517,13 +19558,13 @@ for(var i = 0; i < 2; i++){
         break;
         case 'contraption':
         var theCon = teams[i][q].id;
-
+        
         theCon.dir = 1-(2*i);
-
+        
         //theCon.draw();
             physics(theCon);
             theCon.pos = 'battle';
-
+ 
             if(dist(rm.x,rm.y,theCon.x,theCon.y)<=(25*theCon.stats.size)*theCon.nScale){
                 if(!theCon.inBattleMouseAnim){
                 theCon.inBattleMouseAnim = 1;
@@ -19534,10 +19575,10 @@ for(var i = 0; i < 2; i++){
             }else{
              theCon.inBattleMouseAnim = 1;   
             }
-
+        
         break;
         }
-
+        
     }
     }
 }
@@ -19546,7 +19587,7 @@ var n = 20;
     var n2  = 10;
 for(var i = 0; i < attackPaths.length; i++){
     strokeWeight(5);
-
+    
     stroke(255+sin(frameCount*n2)*n - n, n+sin(frameCount*n2)*n, n+sin(frameCount*n2)*n);
     noFill();
     line(attackPaths[i][0],attackPaths[i][1],attackPaths[i][2],attackPaths[i][3]);
@@ -19580,8 +19621,8 @@ fill(0,0,0,200);
 rect(450,600,280,150);
 fill(255, 0, 0);
 textSize(80);
-textAlign(CENTER,BASELINE);
-text("V.S.",600,700);
+textAlignCompatible(CENTER,BASELINE);
+textCompatible("V.S.",600,700);
 }
 
 
@@ -19604,15 +19645,15 @@ tNameAnim = lerp(tNameAnim,1,0.1);
 
 fill(200, 0, 0);
 textSize(30);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 if(fightTrans > 130){
 if(todo.length > 0){
-text('Next step: ability',300,40);
+textCompatible('Next step: ability',300,40);
 }else{
 if(fightStage !== 'summary'){
-text('Next step: '+resumeFightStage,300,40);
+textCompatible('Next step: '+resumeFightStage,300,40);
 }else{
-text('Next step: '+fightStage,300,40);
+textCompatible('Next step: '+fightStage,300,40);
 }
 }
 }
@@ -19624,10 +19665,10 @@ rect(230,57,140,20,5);
 rect(50,57,140,20,5);
 rect(410,57,140,20,5);
 fill(0, 0, 0);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 if(tutorial.on){
 textSize(15);
-text('Move mouse and scroll to operate camera\nClick to do a combat step (automatic)',300,495-abs(cos(frameCount*3))*14);
+textCompatible('Move mouse and scroll to operate camera\nClick to do a combat step (automatic)',300,495-abs(cos(frameCount*3))*14);
 }
 
 textSize(10);
@@ -19635,21 +19676,21 @@ if(msX > 240 && msX < 360 && msY > 60 && msY < 76){
 cursor(HAND);
 textSize(11);
 }
-text('Auto camera: '+boolToEnglish(aCam.on),300,70);
+textCompatible('Auto camera: '+boolToEnglish(aCam.on),300,70);
 
 textSize(10);
 if(msX > 240-180 && msX < 360-180 && msY > 60 && msY < 76){
 cursor(HAND);
 textSize(11);
 }
-text('Auto play: '+boolToEnglish(doAuto),120,70);
+textCompatible('Auto play: '+boolToEnglish(doAuto),120,70);
 
 textSize(10);
 if(msX > 410 && msX < 370+180 && msY > 60 && msY < 76){
 cursor(HAND);
 textSize(11);
 }
-text('Speed: '+speed,480,70);
+textCompatible('Speed: '+speed,480,70);
 if(msX > 410 && msX < 370+180 && msY > 60 && msY < 76){
 noStroke();
 fill(128, 128, 128,100);
@@ -19662,7 +19703,7 @@ rect(230+180,57,70,20,5);
 }
 
 // textSize(10);
-// text('Click here to change it',300,83);
+// textCompatible('Click here to change it',300,83);
 
 if(topCard && topCard.inBattleMouseAnim > 1.11){
     topCard.cardStuff(10,10,0.12*((topCard.inBattleMouseAnim-1.11)/0.01));
@@ -19710,10 +19751,10 @@ fill(207, 207, 207,200);
 rect(10,530,285,25,5);
 rect(305,530,285,25,5);
 fill(0,0,0);
-textAlign(LEFT,CENTER);
+textAlignCompatible(LEFT,CENTER);
 textSize(15);
-text(tNames[0],20,530+25/2);
-text(tNames[1],315,530+25/2);
+textCompatible(tNames[0],20,530+25/2);
+textCompatible(tNames[1],315,530+25/2);
 
 pushMatrix();
 translate(73,200);
@@ -19722,19 +19763,19 @@ pushMatrix();
 translate(193,477);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 heart(0,0,0.12);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(5-record[1]),0,1.5);
+textCompatible(round(5-record[1]),0,1.5);
 popMatrix();
 pushMatrix();
 translate(236,473);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 trophy(0,0,1);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(record[0]),0,1.5);
+textCompatible(round(record[0]),0,1.5);
 popMatrix();
 pushMatrix();
 translate(278,475);
@@ -19750,19 +19791,19 @@ pushMatrix();
 translate(193,477);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 heart(0,0,0.12);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(5-tRecord[1]),0,1.5);
+textCompatible(round(5-tRecord[1]),0,1.5);
 popMatrix();
 pushMatrix();
 translate(236,473);
 scale(1.2+abs(cos(frameCount*0.5345)*0.3));
 trophy(0,0,1);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(0,0,0);
 textSize(12);
-text(round(tRecord[0]),0,1.5);
+textCompatible(round(tRecord[0]),0,1.5);
 popMatrix();
 pushMatrix();
 translate(278,475);
@@ -19775,10 +19816,10 @@ popMatrix();
 
 
 fill(0,0,0);
-textAlign(CENTER,CENTER);
+textAlignCompatible(CENTER,CENTER);
 textSize(15);
-text(sums[0]+' / '+teamTotals[0],10+285/2,565+25/2);
-text(sums[1]+' / '+teamTotals[1],305+285/2,565+25/2);
+textCompatibleCenter(sums[0]+' / '+teamTotals[0],10+285/2,565+25/2);
+textCompatibleCenter(sums[1]+' / '+teamTotals[1],305+285/2,565+25/2);
 
 fightTrans++;
 
@@ -19798,10 +19839,10 @@ image(bgImg,0,0);
 noStroke();
 fill(0,0,0,180+sumTrans*(40/180));
 rect(-100,-100,1000,1000);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(240, 0, 0);
 textSize(50);
-text('Game Over...'.substring(0,round(12*(sumTrans/180))),300,200);
+textCompatible('Game Over...'.substring(0,round(12*(sumTrans/180))),300,200);
 sumTrans = lerp(sumTrans,180,0.05);
 
 // stuff
@@ -19846,10 +19887,10 @@ image(bgImg,0,0);
 noStroke();
 fill(0,0,0,sumTrans);
 rect(-100,-100,1000,1000);
-textAlign(CENTER,BASELINE);
+textAlignCompatible(CENTER,BASELINE);
 fill(255, 255, 255);
 textSize(40);
-text('Summary'.substring(0,round(7*(sumTrans/180))),300,120);
+textCompatible('Summary'.substring(0,round(7*(sumTrans/180))),300,120);
 if(sumTrans >= 178){
 sumTrans2 = lerp(sumTrans2, 100, 0.08);
 }else{
@@ -19879,7 +19920,7 @@ n2 = 'LOSS';
 translate(300,280);
 scale(((1-(sumTrans2/100))*5)+1);
 textSize(80);
-text(n2,0,0);
+textCompatible(n2,0,0);
 }
 popMatrix();
 
@@ -20552,8 +20593,8 @@ pushedKey = false;
 
 fill(255, 0, 0);
 textSize(10);
-textAlign(LEFT,BASELINE);
-text('FrameRate: '+round(this.__frameRate*10)/10,500,12);
+textAlignCompatible(LEFT,BASELINE);
+textCompatible('FrameRate: '+round(this.__frameRate*10)/10,500,12);
 if(width > 605){
 frameRecord.push(this.__frameRate);
 
@@ -20611,13 +20652,13 @@ dim.cur = false;
 if (true) {
         var window = (function(what) { return this[what]; })("window");
         var canvas = window.Processing.instances[0].externals.canvas;
-
+        
         canvas.onwheel = function(event){
             event.preventDefault();
-
+    
         };
     }    
-
+    
 } catch(error){
     var giveCode = '[';
     for(var i = 0; i < saveCode.length; i++){
@@ -20663,7 +20704,7 @@ mouseScrolled = function(){
         }
     }
 };
-
+        
       </script>
 
     <script src="https://cdn.jsdelivr.net/gh/ackvonhuelio/chickenGameCodes/runPJS_onKA.js"></script>
