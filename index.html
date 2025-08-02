@@ -8651,7 +8651,7 @@ rect(-22,-35,10,70,5);
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < lvl; i++){
-        var a = new foode(t.x,t.y,stats.food.Chocolate);
+        var a = new food(t.x,t.y,stats.food.Chocolate);
         shop[1].data.push(a);
     }
     }else{
@@ -9404,7 +9404,7 @@ popMatrix();
     shop[1].data = [];
     shopPage = 1;
     for(var i = 0; i < 2; i++){
-        var a = new foode(t.x,t.y,stats.food.Oil);
+        var a = new food(t.x,t.y,stats.food.Oil);
         shop[1].data.push(a);
         shop[1].data[shop[1].data.length-1].price = 1;
     }
@@ -10128,7 +10128,7 @@ this.hat = hats[floor(random(0,hats.length))];
 this.id = random(0,1000000000);
 contraptions.push(this);
 }
-function foode(x,y,t){
+function food(x,y,t){
 //println(t);
 this.x = x;
 this.y = y;
@@ -10204,7 +10204,7 @@ case 'contraption':
 ret = new contraption(x,y,t);
 break;
 case 'food':
-ret = new foode(x,y,t);
+ret = new food(x,y,t);
 }
 return ret;
 }
@@ -11709,7 +11709,7 @@ popMatrix();
     }
     
 };
-foode.prototype.draw = function(e){
+food.prototype.draw = function(e){
     
     this.displayed = true;
     //println(this.pos);
@@ -11913,7 +11913,7 @@ var kfc = new effect(this.x,this.y,'deadChicken',1,100);
 }
 killChicken(this);
 };
-foode.prototype.kill = function(){
+food.prototype.kill = function(){
 for(var i = foods.length-1; i > -1; i--){
     if(foods[i] === this){
         foods.splice(i,1);
@@ -12103,7 +12103,7 @@ noStroke();
     popMatrix();
 
 };
-foode.prototype.cardStuff = function(x,y,n){
+food.prototype.cardStuff = function(x,y,n){
     var r = n*(1/0.12);
     fill(200,200,200,(n)*2100);
 noStroke();
@@ -12277,7 +12277,7 @@ this.highlighted = false;
 }
 this.canHold = true;
 };
-foode.prototype.behavior = function(){
+food.prototype.behavior = function(){
 physics(this);
 if(dist(msX,msY,this.x,this.y)<=(25*this.stats.size)*this.nScale){
 
